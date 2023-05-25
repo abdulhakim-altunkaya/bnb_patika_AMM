@@ -92,12 +92,59 @@ contract CarRentalPlatform {
     }
 
     //update car data #onlyOwner, #existingCar
+    function editCarMetaData(uint id, string calldata name, string calldata imgUrl, uint rentFee, uint safeFee) external onlyOwner {
+        require(cars[id] != 0, "car does not exist");
+        Car storage car = cars[id];
+        if(bytes(name).length != 0) {
+            car.name = name;
+        }
+        if(bytes(imgUrl).length != 0) {
+            car.imgUrl = imgUrl;
+        }
+        if(rentFee > 0) {
+            car.rentFee = rentFee;
+        }
+        if(saleFee > 0) {
+            car.saleFee = saleFee;
+        }
+        emit CarMetaDataEdited(id, car.name, car.imgUrl, car.rentFee, car.saleFee);
+    }
 
     //update car status #onlyOwner, #existingCar
+    function editCarStatus(uint id, Status status) external onlyOwner {
+        require(cars[id].id != 0, "car does not exist");
+        cars[id].status = status;
+        emit CarStatusEdited(id, status);
+    }
 
     //checkout the car #existingUser, #isCarAvailable, #userHasNotRentedCar, #userHasNoDebt
+    function CheckOut(uint id) external {
+        require(isUser(msg.sender), "user does not exist");
+        require(cars[id].status == Status.Available, "car is not available");
+        require(users[msg.sender].rentedCarId == 0, "you did not rent any car");
+        require(users[msg.sender].debt == 0, "you have debt");
+
+        users[msg.sender].start = block.timestamp;
+        users[msg.sender].rentedCarId = id;
+        cars[id].status = Status.InUse;
+
+        emit CheckOut(msg.sender, id);
+    }
 
     //checkIn #existingUser, #userHasRentedCar
+    function checkIn() external {
+        require(isUser(msg.sender), "user does not exist");
+        uint rentedCarId = users[msg.sender].rentedCarId;
+        require(rentedCarId != 0, "User has not rented a car");
+        uint usedSeconds = block.timestamp - users[msg.sender].start;
+        uint rentFee = cars[rentedCarId].rentFee;
+        users[msg.sender].debt += calculateDebt(usedSeconds, rentFee);
+        users[msg.sender].rentedCarId = 0;
+        users[msg.sender].start = 0;
+        cars[rentedCarId].status = Status.Available;
+
+        emit CheckIn(msg.sender, rentedCarId);
+    }
 
     //deposit tokens for future rental payments #existingUser
 
