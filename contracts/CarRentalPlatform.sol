@@ -72,10 +72,24 @@ contract CarRentalPlatform {
     //FUNCTIONS
 
     //set owner #onlyOwner
+    function setOwner(address _newOwner) external onlyOwner {
+        owner = _newOwner;
+    }
 
-    //add user #onlyOwner
+    //add user #nonExisting
+    function addUser(string calldata name, string calldata lastName) external {
+        require(!isUser(msg.sender), "user already exists");
+        users[msg.sender] = User(msg.sender, name, lastname, 0, 0, 0, 0);
+        emit UserAdded(msg.sender, users[msg.sender].name, users[msg.sender].lastName);
 
+    }
     //add car #onlyOwner, #nonExistingCar
+    function addCar(string calldata name, string calldata url, uint rent, uint sale) external onlyOwner {
+        _counter.increment();
+        uint counter = _counter.current();
+        cars[counter] = Cars(counter, name, url, Status.Available, rent, sale);
+        emit CarAdded(counter, cars[counter].name, cars[counter].imgUrl, cars[counter].rentFee, cars[counter].saleFee);
+    }
 
     //update car data #onlyOwner, #existingCar
 
