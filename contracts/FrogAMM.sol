@@ -14,6 +14,7 @@ contract FrogAMM {
         if(msg.sender == owner) {
             revert NotOwner("you are not owner", msg.sender);
         }
+        _;
     }
 
     //Token addresses and reserves
@@ -30,7 +31,7 @@ contract FrogAMM {
     }
 
     function addLiquidity(uint amountA, uint amountB) external {
-        require(amountA > && amountB > 0, "amounts must be greater than 0");
+        require(amountA > 0 && amountB > 0, "amounts must be greater than 0");
 
         //transfer tokens from sender to the contract(pool)
         IERC20(tokenA).transferFrom(msg.sender, address(this), amountA);
@@ -71,22 +72,14 @@ contract FrogAMM {
         IERC20(tokenB).transfer(msg.sender, amountB);
     }
 
+    function swap(uint amountIn, uint amountOutMin) external {
+        require(amountIn > 0, "Amount must be greater than 0");
 
-}
-/*
-You can add 10**18 to make calculation easier */
+        // we calculate the amountout. The balance of value between tokens
+        // is dynamic thanks to this calculation below.
+        uint amountOut = (amountIn * reserveB) / reserveA;
 
-contract AMM {
-
-
-
-    function swap(uint256 amountIn, uint256 amountOutMin) external {
-        require(amountIn > 0, "Amount must be greater than zero");
-
-        // Calculate the output amount using the constant product formula
-        uint256 amountOut = (amountIn * reserveB) / reserveA;
-
-        // Ensure the calculated amountOut is greater than or equal to the minimum specified
+        // amountOut must be greater than or equal to the minimum specified
         require(amountOut >= amountOutMin, "Insufficient output amount");
 
         // Transfer tokenIn from the sender to the contract
@@ -95,11 +88,13 @@ contract AMM {
         // Transfer tokenOut from the contract to the sender
         IERC20(tokenB).transfer(msg.sender, amountOut);
 
-        // Update the reserves
+        // Updating reserves
         reserveA += amountIn;
         reserveB -= amountOut;
     }
 }
+/*
+You can add 10**18 to make calculation easier */
 
 interface IERC20 {
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
