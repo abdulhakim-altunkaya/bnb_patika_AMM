@@ -3,6 +3,7 @@
 pragma solidity >=0.8.7;
 
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/contracts/token/ERC20/IERC20.sol";
 
 contract CarRentalPlatform {
 

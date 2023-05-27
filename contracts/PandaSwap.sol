@@ -2,8 +2,11 @@
 
 pragma solidity >= 0.8.7;
 
-contract FrogAMM {
-    //FrogAMM is an Automated Market Maker contract. It manages
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+
+contract PandaSwap {
+    //PandaSwap is an Automated Market Maker contract. It manages
     //a pool of TokenA and TokenB. The project is prepared for Patika-BNB Course
     //by Abdulhakim Altunkaya, 2023
 
@@ -16,6 +19,10 @@ contract FrogAMM {
         }
         _;
     }
+    //constructor assigns owner
+    constructor() {
+        owner = msg.sender;
+    }
 
     //Token addresses and reserves
     address public tokenA;
@@ -23,14 +30,19 @@ contract FrogAMM {
     uint public reserveA;
     uint public reserveB;
 
-    //constructor assigns owner and also token addresses to the variables
-    constructor(address _tokenA, address _tokenB) {
-        owner = msg.sender;
+    //I made the token assignment dynamic with no restriction, so that we play with pool
+    function setTokenAddresses(address _tokenA, address _tokenB) external onlyOwner {
         tokenA = _tokenA;
         tokenB = _tokenB;
     }
 
-    function addLiquidity(uint amountA, uint amountB) external {
+    // Fee structure
+    uint public feePercentage = 10; // Fee percentage (default 10 means 0.1% fee)
+    function updateFeePercentage(uint _fee) external onlyOwner {
+        feePercentage = _fee;
+    }
+
+    function addLiquidity(uint amountA, uint amountB) external onlyOwner {
         require(amountA > 0 && amountB > 0, "amounts must be greater than 0");
 
         //transfer tokens from sender to the contract(pool)
@@ -72,7 +84,7 @@ contract FrogAMM {
         IERC20(tokenB).transfer(msg.sender, amountB);
     }
 
-    function swap(uint amountIn, uint amountOutMin) external {
+    function swapAwithB(uint amountIn, uint amountOutMin) external {
         require(amountIn > 0, "Amount must be greater than 0");
 
         // we calculate the amountout. The balance of value between tokens
@@ -80,7 +92,8 @@ contract FrogAMM {
         uint amountOut = (amountIn * reserveB) / reserveA;
 
         // amountOut must be greater than or equal to the minimum specified
-        require(amountOut >= amountOutMin, "Insufficient output amount");
+        // This line of code is for security of users against slippage and manipulation
+        require(amountOut >= amountOutMin, "actual output is smaller than the desired output");
 
         // Transfer tokenIn from the sender to the contract
         IERC20(tokenA).transferFrom(msg.sender, address(this), amountIn);
@@ -92,11 +105,30 @@ contract FrogAMM {
         reserveA += amountIn;
         reserveB -= amountOut;
     }
+
+    function swapBwithA(uint amountIn, uint amountOutMin) external {
+        require(amountIn > 0, "Amount must be greater than 0");
+
+        //we calculate the amountOut as above.
+        uint amountOut = (amountIn * reserveA) / reserveB;
+
+        //amountOut is specified as above function
+        require(amountOut >= amountOutMin, "actual output is smaller than the desired output");
+
+        //Transfer tokenIn from sender to the contract
+        IERC20(tokenB).transferFrom(msg.sender, address(this), amountIn);
+
+        //Transfer tokenOut from contract to the sender
+        IERC20(tokenA).transfer(msg.sender, amountOut);
+
+        // update reserves
+        reserveB += amountIn;
+        reserveA -= amountOut;
+    }
+
+    function getContactBalance() external view returns(uint, uint) {
+        return (IERC20(tokenA).balanceOf(address(this)), IERC20(tokenB).balanceOf(address(this)));
+    }
 }
 /*
 You can add 10**18 to make calculation easier */
-
-interface IERC20 {
-    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
-    function transfer(address recipient, uint256 amount) external returns (bool);
-}
