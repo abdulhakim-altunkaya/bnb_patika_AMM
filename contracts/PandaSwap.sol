@@ -39,6 +39,7 @@ contract PandaSwap {
     // Fee structure
     uint public feePercentage = 10; // Fee percentage (default 10 means 0.1% fee)
     function updateFeePercentage(uint _fee) external onlyOwner {
+        require(_fee < 201, "fee cannot be bigger than %2");
         feePercentage = _fee;
     }
 
@@ -91,6 +92,13 @@ contract PandaSwap {
         // is dynamic thanks to this calculation below.
         uint amountOut = (amountIn * reserveB) / reserveA;
 
+        //calculating fee on mathematical proportion
+        // if fee is 10, it means we will charge %0.1 per tx on amountOut
+        uint txFee = amountOut / (fee * 100);
+
+        //deducting fee from amountOut
+        amountOut -= txFee;
+
         // amountOut must be greater than or equal to the minimum specified
         // This line of code is for security of users against slippage and manipulation
         require(amountOut >= amountOutMin, "actual output is smaller than the desired output");
@@ -111,6 +119,12 @@ contract PandaSwap {
 
         //we calculate the amountOut as above.
         uint amountOut = (amountIn * reserveA) / reserveB;
+
+        //calculating fee as above
+        uint txFee = amountOut / (fee * 100);
+
+        //deducting fee from amountOut
+        amountOut -= txFee;
 
         //amountOut is specified as above function
         require(amountOut >= amountOutMin, "actual output is smaller than the desired output");
