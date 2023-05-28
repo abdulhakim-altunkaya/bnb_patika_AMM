@@ -6,6 +6,13 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract PandaSwap {
+    //events
+    event SwapHappened(address tokenIn, uint amountIn, address tokenOut, uint amountOut, address client);
+    event PoolIncreased(string message, uint amountA, uint amountB, uint reserveA, uint reserveB);
+    event PoolDecreased(string message, uint amountA, uint amountB, uint reserveA, uint reserveB);
+    event FeeUpdated(uint newFee);
+
+
     //PandaSwap is an Automated Market Maker contract. It manages
     //a pool of TokenA and TokenB. The project is prepared for Patika-BNB Course
     //by Abdulhakim Altunkaya, 2023
@@ -41,6 +48,7 @@ contract PandaSwap {
     function updateFeePercentage(uint _fee) external onlyOwner {
         require(_fee < 201, "fee cannot be bigger than %2");
         feePercentage = _fee;
+        event FeeUpdated(feePercentage);
     }
 
     function addLiquidity(uint amountA, uint amountB) external onlyOwner {
@@ -52,9 +60,11 @@ contract PandaSwap {
 
         reserveA += amountA;
         reserveB += amountB;
+
+        event PoolIncreased("PLUS", amountA, amountB, reserveA, reserveB);
     }
 
-    function removeLiquidityTokenA(uint amountA) external {
+    function removeLiquidityTokenA(uint amountA) external onlyOwner {
         require(amountA > 0, "removal amount must be bigger than 0");
 
         //we need to withdraw a proportional amount from tokenB also to keep the balance of the pool
@@ -68,9 +78,11 @@ contract PandaSwap {
         //transfer tokens back to msg.sender
         IERC20(tokenA).transfer(msg.sender, amountA);
         IERC20(tokenB).transfer(msg.sender, amountB);
+
+        event PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
     }
 
-    function removeLiquidityTokenB(uint amountB) external {
+    function removeLiquidityTokenB(uint amountB) external onlyOwner {
         require(amountB > 0, "removal amount must be bigger than 0");
 
         //calculate corresponding amount as above
@@ -83,6 +95,8 @@ contract PandaSwap {
         //transfer tokens to the msg.sender
         IERC20(tokenA).transfer(msg.sender, amountA);
         IERC20(tokenB).transfer(msg.sender, amountB);
+
+        event PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
     }
 
     function swapAwithB(uint amountIn, uint amountOutMin) external {
@@ -95,7 +109,6 @@ contract PandaSwap {
         //calculating fee on mathematical proportion
         // if fee is 10, it means we will charge %0.1 per tx on amountOut
         uint txFee = amountOut / (feePercentage * 100);
-
         //deducting fee from amountOut
         amountOut -= txFee;
 
@@ -112,6 +125,8 @@ contract PandaSwap {
         // Updating reserves
         reserveA += amountIn;
         reserveB -= amountOut;
+
+        event SwapHappened(tokenA, amountIn, tokenB, amountOut, msg.sender);
     }
 
     function swapBwithA(uint amountIn, uint amountOutMin) external {
@@ -122,7 +137,6 @@ contract PandaSwap {
 
         //calculating fee as above
         uint txFee = amountOut / (feePercentage * 100);
-
         //deducting fee from amountOut
         amountOut -= txFee;
 
@@ -138,6 +152,8 @@ contract PandaSwap {
         // update reserves
         reserveB += amountIn;
         reserveA -= amountOut;
+
+        event SwapHappened(tokenB, amountIn, tokenA, amountOut, msg.sender);
     }
 
     function getContactBalance() external view returns(uint, uint) {
@@ -150,4 +166,4 @@ Staking and rewarding mechanism for liquidity providers
 allowance and approve functions
 Anywhere to use Counters?
 Anywhere to use block.timestamp?
-Events*/
+*/
