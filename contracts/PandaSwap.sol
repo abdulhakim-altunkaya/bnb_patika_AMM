@@ -94,7 +94,7 @@ contract PandaSwap {
 
         //calculating fee on mathematical proportion
         // if fee is 10, it means we will charge %0.1 per tx on amountOut
-        uint txFee = amountOut / (fee * 100);
+        uint txFee = amountOut / (feePercentage * 100);
 
         //deducting fee from amountOut
         amountOut -= txFee;
@@ -121,7 +121,7 @@ contract PandaSwap {
         uint amountOut = (amountIn * reserveA) / reserveB;
 
         //calculating fee as above
-        uint txFee = amountOut / (fee * 100);
+        uint txFee = amountOut / (feePercentage * 100);
 
         //deducting fee from amountOut
         amountOut -= txFee;
@@ -145,4 +145,9 @@ contract PandaSwap {
     }
 }
 /*
-You can add 10**18 to make calculation easier */
+You can add 10**18 to make calculation easier
+Staking and rewarding mechanism for liquidity providers
+allowance and approve functions
+Anywhere to use Counters?
+Anywhere to use block.timestamp?
+Events*/
