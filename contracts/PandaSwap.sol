@@ -1,4 +1,4 @@
-//SSPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 
 pragma solidity >= 0.8.7;
 
@@ -39,8 +39,19 @@ contract PandaSwap {
 
     //I made the token assignment dynamic with no restriction, so that we play with pool
     function setTokenAddresses(address _tokenA, address _tokenB) external onlyOwner {
+        require(isERC20Token(_tokenA) == true, "not valid tokenA address");
+        require(isERC20Token(_tokenB) == true, "not valid tokenB address");
         tokenA = _tokenA;
         tokenB = _tokenB;
+    }
+    //We are checking if the addresses belong to ERC20 tokens. They need to return a number
+    //from if we call totalSupply() erc20 method on them.
+    function isERC20Token(address _tokenAddress) internal view returns(bool) {
+        try IERC20(_tokenAddress).totalSupply() returns(uint) {
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     // Fee structure
@@ -48,7 +59,7 @@ contract PandaSwap {
     function updateFeePercentage(uint _fee) external onlyOwner {
         require(_fee < 201, "fee cannot be bigger than %2");
         feePercentage = _fee;
-        event FeeUpdated(feePercentage);
+        emit FeeUpdated(feePercentage);
     }
 
     function addLiquidity(uint amountA, uint amountB) external onlyOwner {
@@ -61,7 +72,7 @@ contract PandaSwap {
         reserveA += amountA;
         reserveB += amountB;
 
-        event PoolIncreased("PLUS", amountA, amountB, reserveA, reserveB);
+        emit PoolIncreased("PLUS", amountA, amountB, reserveA, reserveB);
     }
 
     function removeLiquidityTokenA(uint amountA) external onlyOwner {
@@ -79,7 +90,7 @@ contract PandaSwap {
         IERC20(tokenA).transfer(msg.sender, amountA);
         IERC20(tokenB).transfer(msg.sender, amountB);
 
-        event PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
+        emit PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
     }
 
     function removeLiquidityTokenB(uint amountB) external onlyOwner {
@@ -96,7 +107,7 @@ contract PandaSwap {
         IERC20(tokenA).transfer(msg.sender, amountA);
         IERC20(tokenB).transfer(msg.sender, amountB);
 
-        event PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
+        emit PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
     }
 
     function swapAwithB(uint amountIn, uint amountOutMin) external {
@@ -126,7 +137,7 @@ contract PandaSwap {
         reserveA += amountIn;
         reserveB -= amountOut;
 
-        event SwapHappened(tokenA, amountIn, tokenB, amountOut, msg.sender);
+        emit SwapHappened(tokenA, amountIn, tokenB, amountOut, msg.sender);
     }
 
     function swapBwithA(uint amountIn, uint amountOutMin) external {
@@ -153,7 +164,7 @@ contract PandaSwap {
         reserveB += amountIn;
         reserveA -= amountOut;
 
-        event SwapHappened(tokenB, amountIn, tokenA, amountOut, msg.sender);
+        emit SwapHappened(tokenB, amountIn, tokenA, amountOut, msg.sender);
     }
 
     function getContactBalance() external view returns(uint, uint) {
