@@ -62,8 +62,8 @@ contract PandaSwap {
         emit FeeUpdated(feePercentage);
     }
 
-    function addLiquidity(uint amountA, uint amountB) external onlyOwner {
-        require(amountA > 0 && amountB > 0, "amounts must be greater than 0");
+    function addLiquidity(uint amountA, uint amountB) external {
+        require(amountA > 0 && amountB > 0, "amounts of tokenA and tokenB must be greater than 0");
 
         //transfer tokens from sender to the contract(pool)
         IERC20(tokenA).transferFrom(msg.sender, address(this), amountA);
@@ -167,6 +167,23 @@ contract PandaSwap {
         emit SwapHappened(tokenB, amountIn, tokenA, amountOut, msg.sender);
     }
 
+    //As this an AMM of TokenA and TokenB, I dont need to use parameter area to assign
+    //any dynamic token address
+    function withdrawLeftoverTokens() external onlyOwner {
+
+        //calculating the general amounts (reserve + leftover)
+        uint amountTokenA = IERC20(tokenA).balanceOf(address(this));
+        uint amountTokenB = IERC20(tokenB).balanceOf(address(this));
+
+        //calculating leftovers 
+        uint leftoverTokenA = amountTokenA - reserveA;
+        uint leftoverTokenB = amountTokenB - reserveB;
+
+        //Transfer leftovers from contract to the sender
+        IERC20(tokenA).transfer(msg.sender, leftoverTokenA);
+        IERC20(tokenB).transfer(msg.sender, leftoverTokenB);
+    }
+
     function getContactBalance() external view returns(uint, uint) {
         return (IERC20(tokenA).balanceOf(address(this)), IERC20(tokenB).balanceOf(address(this)));
     }
@@ -174,7 +191,9 @@ contract PandaSwap {
 /*
 You can add 10**18 to make calculation easier
 Staking and rewarding mechanism for liquidity providers
-allowance and approve functions
 Anywhere to use Counters?
 Anywhere to use block.timestamp?
+Pause the swap and remove liquidity functions
+
+allowance and approve functions**no need because we are directly depositing the amounts inside the contract
 */
