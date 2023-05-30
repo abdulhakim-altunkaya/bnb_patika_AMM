@@ -113,9 +113,13 @@ contract PandaSwap {
     function swapAwithB(uint amountIn, uint amountOutMin) external {
         require(amountIn > 0, "Amount must be greater than 0");
 
+        //adding 18 decimals to the input values:
+        uint amountInDecimalsAdded = amountIn * (10**18);
+        uint amountOutMinDecimalsAdded = amountOutMin * (10**18);
+
         // we calculate the amountout. The balance of value between tokens
         // is dynamic thanks to this calculation below.
-        uint amountOut = (amountIn * reserveB) / reserveA;
+        uint amountOut = (amountInDecimalsAdded * reserveB) / reserveA;
 
         //calculating fee on mathematical proportion
         // if fee is 10, it means we will charge %0.1 per tx on amountOut
@@ -125,26 +129,30 @@ contract PandaSwap {
 
         // amountOut must be greater than or equal to the minimum specified
         // This line of code is for security of users against slippage and manipulation
-        require(amountOut >= amountOutMin, "actual output is smaller than the desired output");
+        require(amountOut >= amountOutMinDecimalsAdded, "actual output is smaller than the desired output");
 
         // Transfer tokenIn from the sender to the contract
-        IERC20(tokenA).transferFrom(msg.sender, address(this), amountIn);
+        IERC20(tokenA).transferFrom(msg.sender, address(this), amountInDecimalsAdded);
 
         // Transfer tokenOut from the contract to the sender
         IERC20(tokenB).transfer(msg.sender, amountOut);
 
         // Updating reserves
-        reserveA += amountIn;
+        reserveA += amountInDecimalsAdded;
         reserveB -= amountOut;
 
-        emit SwapHappened(tokenA, amountIn, tokenB, amountOut, msg.sender);
+        emit SwapHappened(tokenA, amountInDecimalsAdded, tokenB, amountOut, msg.sender);
     }
 
     function swapBwithA(uint amountIn, uint amountOutMin) external {
         require(amountIn > 0, "Amount must be greater than 0");
 
+        //adding 18 decimals to the input values:
+        uint amountInDecimalsAdded = amountIn * (10**18);
+        uint amountOutMinDecimalsAdded = amountOutMin * (10**18);
+
         //we calculate the amountOut as above.
-        uint amountOut = (amountIn * reserveA) / reserveB;
+        uint amountOut = (amountInDecimalsAdded * reserveA) / reserveB;
 
         //calculating fee as above
         uint txFee = amountOut / (feePercentage * 100);
@@ -152,19 +160,19 @@ contract PandaSwap {
         amountOut -= txFee;
 
         //amountOut is specified as above function
-        require(amountOut >= amountOutMin, "actual output is smaller than the desired output");
+        require(amountOut >= amountOutMinDecimalsAdded, "actual output is smaller than the desired output");
 
         //Transfer tokenIn from sender to the contract
-        IERC20(tokenB).transferFrom(msg.sender, address(this), amountIn);
+        IERC20(tokenB).transferFrom(msg.sender, address(this), amountInDecimalsAdded);
 
         //Transfer tokenOut from contract to the sender
         IERC20(tokenA).transfer(msg.sender, amountOut);
 
         // update reserves
-        reserveB += amountIn;
+        reserveB += amountInDecimalsAdded;
         reserveA -= amountOut;
 
-        emit SwapHappened(tokenB, amountIn, tokenA, amountOut, msg.sender);
+        emit SwapHappened(tokenB, amountInDecimalsAdded, tokenA, amountOut, msg.sender);
     }
 
     //As this an AMM of TokenA and TokenB, I dont need to use parameter area to assign
