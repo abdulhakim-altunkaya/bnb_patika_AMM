@@ -213,11 +213,12 @@ contract PandaSwap {
     }
 }
 /*
-You can add 10**18 to make calculation easier
+
 Staking and rewarding mechanism for liquidity providers
-Anywhere to use Counters?
-Anywhere to use block.timestamp?
 Pause the swap and remove liquidity functions
 
+Anywhere to use Counters?**no need
+Anywhere to use block.timestamp?**no need
+You can add 10**18 to make calculation easier**done
 allowance and approve functions**no need because we are directly depositing the amounts inside the contract
 */
