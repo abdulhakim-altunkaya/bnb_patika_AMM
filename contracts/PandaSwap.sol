@@ -179,13 +179,19 @@ contract PandaSwap {
         uint leftoverTokenA = amountTokenA - reserveA;
         uint leftoverTokenB = amountTokenB - reserveB;
 
+        //leftovers must be above 1 token to make tx meaningful
+        require(leftoverTokenA > 1*(10**18) || leftoverTokenB > 1*(10**18), "leftover token must be bigger than 1");
+
         //Transfer leftovers from contract to the sender
         IERC20(tokenA).transfer(msg.sender, leftoverTokenA);
         IERC20(tokenB).transfer(msg.sender, leftoverTokenB);
     }
 
+    //return amounts are divided by 18 decimals to make results look nicer on the frontend
     function getContactBalance() external view returns(uint, uint) {
-        return (IERC20(tokenA).balanceOf(address(this)), IERC20(tokenB).balanceOf(address(this)));
+        uint amountTokenA = IERC20(tokenA).balanceOf(address(this)) / (10**18);
+        uint amountTokenB = IERC20(tokenB).balanceOf(address(this)) / (10**18);
+        return (amountTokenA, amountTokenB);
     }
 }
 /*
