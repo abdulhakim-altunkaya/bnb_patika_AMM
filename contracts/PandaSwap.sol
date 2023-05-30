@@ -62,9 +62,13 @@ contract PandaSwap {
         emit FeeUpdated(feePercentage);
     }
 
-    function addLiquidity(uint amountA, uint amountB) external {
+    function addLiquidity(uint _amountA, uint _amountB) external {
         require(amountA > 0 && amountB > 0, "amounts of tokenA and tokenB must be greater than 0");
 
+        //adding decimals
+        uint amountA = _amountA * (10**18);
+        uint amountB = _amountB * (10**18);
+        
         //transfer tokens from sender to the contract(pool)
         IERC20(tokenA).transferFrom(msg.sender, address(this), amountA);
         IERC20(tokenB).transferFrom(msg.sender, address(this), amountB);
@@ -75,8 +79,11 @@ contract PandaSwap {
         emit PoolIncreased("PLUS", amountA, amountB, reserveA, reserveB);
     }
 
-    function removeLiquidityTokenA(uint amountA) external onlyOwner {
-        require(amountA > 0, "removal amount must be bigger than 0");
+    function removeLiquidityTokenA(uint _amountA) external onlyOwner {
+        require(_amountA > 0, "removal amount must be bigger than 0");
+
+        //adding decimals
+        uint amountA = _amountA * (10**18);
 
         //we need to withdraw a proportional amount from tokenB also to keep the balance of the pool
         //To do so, we use a basic mathematical proportion.
@@ -93,8 +100,11 @@ contract PandaSwap {
         emit PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
     }
 
-    function removeLiquidityTokenB(uint amountB) external onlyOwner {
-        require(amountB > 0, "removal amount must be bigger than 0");
+    function removeLiquidityTokenB(uint _amountB) external onlyOwner {
+        require(_amountB > 0, "removal amount must be bigger than 0");
+
+        //adding 18 decimals
+        uint amountB = _amountB * (10**18);
 
         //calculate corresponding amount as above
         uint amountA = (amountB * reserveA) / reserveB;
