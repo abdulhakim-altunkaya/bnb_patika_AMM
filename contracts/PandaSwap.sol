@@ -70,8 +70,8 @@ contract PandaSwap {
         uint amountB = _amountB * (10**18);
         
         //transfer tokens from sender to the contract(pool)
-        IERC20(tokenA).transferFrom(msg.sender, address(this), amountA);
-        IERC20(tokenB).transferFrom(msg.sender, address(this), amountB);
+        IERC20(tokenA).transfer(address(this), amountA);
+        IERC20(tokenB).transfer(address(this), amountB);
 
         reserveA += amountA;
         reserveB += amountB;
