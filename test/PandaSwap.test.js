@@ -12,24 +12,32 @@ describe("PandaSwap", () => {
   let addressTokenB;
 
   beforeEach(async () => {
+
+    //PandaSwap Block
     const PandaSwap = await ethers.getContractFactory("PandaSwap");
     contractPandaSwap = await PandaSwap.deploy();
     await contractPandaSwap.deployed();
     addressPandaSwap = contractPandaSwap.address;
  
-
+    //TokenA Block
     const TokenA = await ethers.getContractFactory("TokenA");
     contractTokenA = await TokenA.deploy(1000000); // Set the initial supply to 1000000
     await contractTokenA.deployed();
-    addressTokenA = contractTokenA.address;
-   
 
+    //extra steps for some test blocks
+    addressTokenA = contractTokenA.address;
+    await contractTokenA.mintToken(2000);
+
+    //TokenB Block
     const TokenB = await ethers.getContractFactory("TokenB");
     contractTokenB = await TokenB.deploy(1000000);
     await contractTokenB.deployed();
+
+    //extra steps for some test blocks
     addressTokenB = contractTokenB.address;
+    await contractTokenB.mintToken(2000);
 
-
+    //getting owner for some test blocks
     [owner] = await ethers.getSigners();
   });
 
@@ -47,21 +55,18 @@ describe("PandaSwap", () => {
   });
 
   it("Should mint 1000 tokens from TokenA and TokenB and send it to msg.sender aka owner", async () => {
-    await contractTokenA.mintToken(1000);
-    await contractTokenB.mintToken(1000);
     const tokenBalance1 = await contractTokenA.getYourBalance();
     const tokenBalance2 = await contractTokenB.getYourBalance();
     //as it returns a string, I need to convert values to Number
-    expect(Number(tokenBalance1) + Number(tokenBalance2)).to.equal(2000);
+    expect(Number(tokenBalance1) + Number(tokenBalance2)).to.equal(4000);
   });
 
   it("Should mint 2000 tokens from TokenA and TokenB and set token addresses on PandaSwap contract", async () => {
-    await contractTokenA.mintToken(2000);
-    await contractTokenB.mintToken(2000);
     await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
     let tokenAddress = await contractPandaSwap.tokenA();
-    console.log("here it is:", tokenAddress);
+    console.log("here is the address of TokenA contract:", tokenAddress);
   })
+
 
 
 });
