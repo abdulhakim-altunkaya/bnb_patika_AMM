@@ -63,7 +63,7 @@ contract PandaSwap {
     }
 
     function addLiquidity(uint _amountA, uint _amountB) external {
-        require(amountA > 0 && amountB > 0, "amounts of tokenA and tokenB must be greater than 0");
+        require(_amountA > 0 && _amountB > 0, "amounts of tokenA and tokenB must be greater than 0");
 
         //adding decimals
         uint amountA = _amountA * (10**18);
