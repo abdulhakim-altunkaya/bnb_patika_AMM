@@ -17,6 +17,7 @@ describe("PandaSwap", () => {
     const PandaSwap = await ethers.getContractFactory("PandaSwap");
     contractPandaSwap = await PandaSwap.deploy();
     await contractPandaSwap.deployed();
+    //extra step for some functions
     addressPandaSwap = contractPandaSwap.address;
  
     //TokenA Block
@@ -65,8 +66,18 @@ describe("PandaSwap", () => {
     await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
     let tokenAddress = await contractPandaSwap.tokenA();
     console.log("here is the address of TokenA contract:", tokenAddress);
-  })
+  });
 
+  it("Should return the balance of owner address in TokenA", async () => {
+    await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
+    const tokenABalance = await contractTokenA.balanceOf(owner.address);
+    console.log("Owner Balance in TokenA is: ", tokenABalance);
+  });
+
+  it("Should add liquidity in PandaSwap contract", async () => {
+    await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
+    await contractPandaSwap.addLiquidity(1, 1);
+  })
 
 
 });

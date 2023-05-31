@@ -34,6 +34,7 @@ contract PandaSwap {
     //Token addresses and reserves
     address public tokenA;
     address public tokenB;
+    address public contractAddress;
     uint public reserveA;
     uint public reserveB;
 
@@ -43,6 +44,7 @@ contract PandaSwap {
         require(isERC20Token(_tokenB) == true, "not valid tokenB address");
         tokenA = _tokenA;
         tokenB = _tokenB;
+        contractAddress = address(this);
     }
     //We are checking if the addresses belong to ERC20 tokens. They need to return a number
     //from if we call totalSupply() erc20 method on them.
@@ -77,6 +79,14 @@ contract PandaSwap {
         reserveB += amountB;
 
         emit PoolIncreased("PLUS", amountA, amountB, reserveA, reserveB);
+    }
+
+    function addLiquidityTokenA1(uint _amount) external {
+        IERC20(tokenA).transfer(address(this), _amount);
+    }
+    function addLiquidityTokenA2(uint _amount) external {
+        uint amountA = _amount * (10**18);
+        IERC20(tokenA).transfer(address(this), amountA);
     }
 
     function removeLiquidityTokenA(uint _amountA) external onlyOwner {
@@ -221,4 +231,22 @@ Anywhere to use Counters?**no need
 Anywhere to use block.timestamp?**no need
 You can add 10**18 to make calculation easier**done
 allowance and approve functions**no need because we are directly depositing the amounts inside the contract
+
+ERROR fix: 
+    function addLiquidityTokenA(uint _amount) external {
+        IERC20(tokenA).transfer(address(this), _amount);
+    }
+Aim of the function above is to transfer _amount of TokenA from user account to the this Swap contract.
+What it does is transfer _amount of TokenA from Swap contract to the Swap contract. This is error.
+
+To fix this error:
+Option 1: We shouldnt use transfer method on inside contract as it is receiving msg.sender address as
+contract address. Instead we can use transfer method on Token Contract. There msg.sender will be user
+account.
+
+Option 2: If we insist to use a transfer method on swap contract, then we can use transferFrom method.
+But before that we need to approve Swap contract to use _amount of TokenA user has.
+    function addLiquidityTokenA(uint _amount) external {
+        IERC20(tokenA).transferFrom(msg.sender, address(this), _amount);
+    }
 */
