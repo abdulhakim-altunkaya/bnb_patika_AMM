@@ -15,7 +15,7 @@ contract TokenA is ERC20Capped {
     address public owner;
     error NotOwner(address caller, string message);
     modifier onlyOwner() {
-        if(msg.sender == owner) {
+        if(msg.sender != owner) {
             revert NotOwner(msg.sender, "you are not owner");
         }
         _;

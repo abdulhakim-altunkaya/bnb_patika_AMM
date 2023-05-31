@@ -21,7 +21,7 @@ contract PandaSwap {
     address public owner;
     error NotOwner(string message, address caller);
     modifier onlyOwner() {
-        if(msg.sender == owner) {
+        if(msg.sender != owner) {
             revert NotOwner("you are not owner", msg.sender);
         }
         _;
