@@ -70,23 +70,15 @@ contract PandaSwap {
         //adding decimals
         uint amountA = _amountA * (10**18);
         uint amountB = _amountB * (10**18);
-        
+      
         //transfer tokens from sender to the contract(pool)
-        IERC20(tokenA).transfer(address(this), amountA);
-        IERC20(tokenB).transfer(address(this), amountB);
+        IERC20(tokenA).transferFrom(owner, contractAddress, amountA);
+        IERC20(tokenB).transferFrom(owner, contractAddress, amountB);
 
         reserveA += amountA;
         reserveB += amountB;
 
         emit PoolIncreased("PLUS", amountA, amountB, reserveA, reserveB);
-    }
-
-    function addLiquidityTokenA1(uint _amount) external {
-        IERC20(tokenA).transfer(address(this), _amount);
-    }
-    function addLiquidityTokenA2(uint _amount) external {
-        uint amountA = _amount * (10**18);
-        IERC20(tokenA).transfer(address(this), amountA);
     }
 
     function removeLiquidityTokenA(uint _amountA) external onlyOwner {

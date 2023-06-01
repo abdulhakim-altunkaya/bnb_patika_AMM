@@ -27,7 +27,7 @@ describe("PandaSwap", () => {
 
     //extra steps for some test blocks
     addressTokenA = contractTokenA.address;
-    await contractTokenA.mintToken(2000);
+    await contractTokenA.mintToken(20000);
 
     //TokenB Block
     const TokenB = await ethers.getContractFactory("TokenB");
@@ -36,7 +36,7 @@ describe("PandaSwap", () => {
 
     //extra steps for some test blocks
     addressTokenB = contractTokenB.address;
-    await contractTokenB.mintToken(2000);
+    await contractTokenB.mintToken(20000);
 
     //getting owner for some test blocks
     [owner] = await ethers.getSigners();
@@ -59,7 +59,7 @@ describe("PandaSwap", () => {
     const tokenBalance1 = await contractTokenA.getYourBalance();
     const tokenBalance2 = await contractTokenB.getYourBalance();
     //as it returns a string, I need to convert values to Number
-    expect(Number(tokenBalance1) + Number(tokenBalance2)).to.equal(4000);
+    expect(Number(tokenBalance1) + Number(tokenBalance2)).to.equal(40000);
   });
 
   it("Should mint 2000 tokens from TokenA and TokenB and set token addresses on PandaSwap contract", async () => {
@@ -76,8 +76,20 @@ describe("PandaSwap", () => {
 
   it("Should add liquidity in PandaSwap contract", async () => {
     await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
-    await contractPandaSwap.addLiquidity(1, 1);
+    
+    // Define the number of tokens to add as liquidity
+
+    // Approve the PandaSwap contract to spend the tokens
+    await contractTokenA.approve(addressPandaSwap, ethers.utils.parseEther("2"));
+    await contractTokenB.approve(addressPandaSwap, ethers.utils.parseEther("2"));
+    
+
+    // Add liquidity
+    await contractPandaSwap.addLiquidity(2, 2);
+
+    // Optional: Check that the liquidity was added correctly
+
   })
 
-
 });
+
