@@ -82,9 +82,9 @@ describe("PandaSwap", () => {
     // Add liquidity
     await contractPandaSwap.addLiquidity(2, 2);
     const tokenABalance = await contractTokenA.balanceOf(addressPandaSwap);
-    console.log("PandaSwap contract Balance in TokenA is: ", tokenABalance);
-    // Optional: Check that the liquidity was added correctly
+    expect(tokenABalance).to.equal(ethers.utils.parseEther("2"));
   })
+
   it("Should remove liquidity in PandaSwap contract", async () => {
     await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
     // Approve the PandaSwap contract to spend the tokens
@@ -94,9 +94,21 @@ describe("PandaSwap", () => {
     await contractPandaSwap.addLiquidity(2, 2);
     await contractPandaSwap.removeLiquidityTokenB(1);
     const tokenBBalance = await contractTokenB.balanceOf(addressPandaSwap);
+    let expectedBalance = 1*(10**18); //instead of ethers.utils.parseEther("1")
+    expect(tokenBBalance.toString()).to.equal(expectedBalance.toString()); //As number is very big, I need to convert it to string
+  })
+
+  it("Should swap 10 tokenA with tokenB", async () => {
+    await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
+    // Approve the PandaSwap contract to spend the tokens
+    await contractTokenA.approve(addressPandaSwap, ethers.utils.parseEther("1000"));
+    await contractTokenB.approve(addressPandaSwap, ethers.utils.parseEther("600"));
+    // Add liquidity
+    await contractPandaSwap.addLiquidity(1000, 600);
+    await contractPandaSwap.removeLiquidityTokenB(1);
+    const tokenBBalance = await contractTokenB.balanceOf(addressPandaSwap);
     console.log("PandaSwap contract Balance in TokenB is: ", tokenBBalance);
     // Optional: Check that the liquidity was added correctly
   })
-
 });
 
