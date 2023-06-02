@@ -76,19 +76,26 @@ describe("PandaSwap", () => {
 
   it("Should add liquidity in PandaSwap contract", async () => {
     await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
-    
-    // Define the number of tokens to add as liquidity
-
     // Approve the PandaSwap contract to spend the tokens
     await contractTokenA.approve(addressPandaSwap, ethers.utils.parseEther("2"));
     await contractTokenB.approve(addressPandaSwap, ethers.utils.parseEther("2"));
-    
-
     // Add liquidity
     await contractPandaSwap.addLiquidity(2, 2);
-
+    const tokenABalance = await contractTokenA.balanceOf(addressPandaSwap);
+    console.log("PandaSwap contract Balance in TokenA is: ", tokenABalance);
     // Optional: Check that the liquidity was added correctly
-
+  })
+  it("Should remove liquidity in PandaSwap contract", async () => {
+    await contractPandaSwap.setTokenAddresses(addressTokenA, addressTokenB);
+    // Approve the PandaSwap contract to spend the tokens
+    await contractTokenA.approve(addressPandaSwap, ethers.utils.parseEther("2"));
+    await contractTokenB.approve(addressPandaSwap, ethers.utils.parseEther("2"));
+    // Add liquidity
+    await contractPandaSwap.addLiquidity(2, 2);
+    await contractPandaSwap.removeLiquidityTokenB(1);
+    const tokenBBalance = await contractTokenB.balanceOf(addressPandaSwap);
+    console.log("PandaSwap contract Balance in TokenB is: ", tokenBBalance);
+    // Optional: Check that the liquidity was added correctly
   })
 
 });
