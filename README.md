@@ -4,10 +4,10 @@ PandaSwap is a Decentralized Exchange (DEX) built on the Ethereum network, provi
 
 ## Contract Addresses
 
-PandaSwap Contract: 0xec4B63d19A1f18477952d95a0Dc71F64690fb332
-TokenA Contract: 0x423d6B08eabbd387d9F4b9593745F3A83dcb35fd
-TokenB Contract: 0x7622b5f39116A8208f8C8697e298b3038f87d8e4
-Owner Address: 0x6EcBD464d3200C08d1bC50027FC32a6Da6694641
+<strong> PandaSwap Contract: </strong> 0xec4B63d19A1f18477952d95a0Dc71F64690fb332 <br>
+<strong> TokenA Contract: </strong> 0x423d6B08eabbd387d9F4b9593745F3A83dcb35fd <br>
+<strong> TokenB Contract: </strong> 0x7622b5f39116A8208f8C8697e298b3038f87d8e4 <br>
+<strong> Owner Address: </strong> 0x6EcBD464d3200C08d1bC50027FC32a6Da6694641
 
 ## Features :star:
 
