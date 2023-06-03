@@ -137,13 +137,16 @@ describe("PandaSwap", () => {
     //this operation. Which means If I call leftover function, it should succeed.
     const amountBamount = await contractPandaSwap.getTokenABalance();
     const reserveBamount = await contractPandaSwap.reserveA();
+    //before withdrawal
     console.log("A general balance is:", amountBamount);
     console.log("A reserve Balance is:", reserveBamount);
     await contractPandaSwap.withdrawLeftoverTokens();
     const amountBamount2 = await contractPandaSwap.getTokenABalance();
     const reserveBamount2 = await contractPandaSwap.reserveA();
+    //after withdrawal
     console.log("A general balance is:", amountBamount2);
     console.log("A reserve Balance is:", reserveBamount2);
+    expect(amountBamount2.toString()).to.equal(reserveBamount2.toString());
   })
 });
 

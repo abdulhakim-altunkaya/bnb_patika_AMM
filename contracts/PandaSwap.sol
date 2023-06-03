@@ -31,6 +31,19 @@ contract PandaSwap {
         owner = msg.sender;
     }
 
+    //Security function: pausing functions in case of emergencies
+    bool internal pauseStatus = false;
+    function pauseEverything() external onlyOwner {
+        pauseStatus = !pauseStatus;
+    }
+    error Paused(string message, address caller);
+    modifier isPaused() {
+        if(pauseStatus == true) {
+            revert Paused("Contract is paused for security concerns, contact owner", owner);
+        }
+        _;
+    }
+
     //Token addresses and reserves
     address public tokenA;
     address public tokenB;
@@ -58,13 +71,13 @@ contract PandaSwap {
 
     // Fee structure
     uint public feePercentage = 1; // Fee percentage (default 1 means 1% fee)
-    function updateFeePercentage(uint _fee) external onlyOwner {
+    function updateFeePercentage(uint _fee) external isPaused onlyOwner {
         require(_fee < 3, "fee cannot be bigger than %2");
         feePercentage = _fee;
         emit FeeUpdated(feePercentage);
     }
 
-    function addLiquidity(uint _amountA, uint _amountB) external {
+    function addLiquidity(uint _amountA, uint _amountB) external isPaused {
         require(_amountA > 0 && _amountB > 0, "amounts of tokenA and tokenB must be greater than 0");
 
         //adding decimals
@@ -81,7 +94,7 @@ contract PandaSwap {
         emit PoolIncreased("PLUS", amountA, amountB, reserveA, reserveB);
     }
 
-    function removeLiquidityTokenA(uint _amountA) external onlyOwner {
+    function removeLiquidityTokenA(uint _amountA) external isPaused onlyOwner {
         require(_amountA > 0, "removal amount must be bigger than 0");
 
         //adding decimals
@@ -102,7 +115,7 @@ contract PandaSwap {
         emit PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
     }
 
-    function removeLiquidityTokenB(uint _amountB) external onlyOwner {
+    function removeLiquidityTokenB(uint _amountB) external isPaused onlyOwner {
         require(_amountB > 0, "removal amount must be bigger than 0");
 
         //adding 18 decimals
@@ -122,12 +135,15 @@ contract PandaSwap {
         emit PoolDecreased("MINUS", amountA, amountB, reserveA, reserveB);
     }
 
-    function swapAwithB(uint amountIn, uint amountOutMin) external {
+    function swapAwithB(uint amountIn, uint amountOutMin) external isPaused {
         require(amountIn > 0, "Amount must be greater than 0");
 
         //adding 18 decimals to the input values:
         uint amountInDecimalsAdded = amountIn * (10**18);
         uint amountOutMinDecimalsAdded = amountOutMin * (10**18);
+
+        //swap amounts should not be as big as pool
+        require(amountInDecimalsAdded < reserveA/2, "swap amounts should not be as big as pool");
 
         // we calculate the amountout. The balance of value between tokens
         // is dynamic thanks to this calculation below.
@@ -157,12 +173,14 @@ contract PandaSwap {
         emit SwapHappened(tokenA, amountInDecimalsAdded, tokenB, amountOut, msg.sender);
     }
 
-    function swapBwithA(uint amountIn, uint amountOutMin) external {
+    function swapBwithA(uint amountIn, uint amountOutMin) external isPaused {
         require(amountIn > 0, "Amount must be greater than 0");
-
+        
         //adding 18 decimals to the input values:
         uint amountInDecimalsAdded = amountIn * (10**18);
         uint amountOutMinDecimalsAdded = amountOutMin * (10**18);
+
+        require(amountInDecimalsAdded < reserveB/2, "swap amounts should not be as big as pool");
 
         //we calculate the amountOut as above.
         uint amountOut = (amountInDecimalsAdded * reserveA) / reserveB;
@@ -191,7 +209,7 @@ contract PandaSwap {
 
     //As this an AMM of TokenA and TokenB, I dont need to use parameter area to assign
     //any dynamic token address
-    function withdrawLeftoverTokens() external onlyOwner {
+    function withdrawLeftoverTokens() external isPaused onlyOwner {
 
         //calculating the general amounts (reserve + leftover)
         uint amountTokenA = IERC20(tokenA).balanceOf(address(this));
@@ -224,32 +242,3 @@ contract PandaSwap {
         return amountTokenB;
     }
 }
-/*
-
-Staking and rewarding mechanism for liquidity providers
-Pause the swap and remove liquidity functions
-Add swap and remove amounts must be less than reserves
-Anywhere to use Counters?**no need
-Anywhere to use block.timestamp?**no need
-You can add 10**18 to make calculation easier**done
-allowance and approve functions**no need because we are directly depositing the amounts inside the contract
-
-ERROR fix: 
-    function addLiquidityTokenA(uint _amount) external {
-        IERC20(tokenA).transfer(address(this), _amount);
-    }
-Aim of the function above is to transfer _amount of TokenA from user account to the this Swap contract.
-What it does is transfer _amount of TokenA from Swap contract to the Swap contract. This is error.
-
-To fix this error:
-Option 1: We shouldnt use transfer method on inside contract as it is receiving msg.sender address as
-contract address. Instead we can use transfer method on Token Contract. There msg.sender will be user
-account.
-
-Option 2: If we insist to use a transfer method on swap contract, then we can use transferFrom method.
-But before that we need to approve Swap contract to use _amount of TokenA user has. We can do that 
-not on the smart contract but on the frontend
-    function addLiquidityTokenA(uint _amount) external {
-        IERC20(tokenA).transferFrom(msg.sender, address(this), _amount);
-    }
-*/
