@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# PandaSwap :panda_face:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+PandaSwap is a Decentralized Exchange (DEX) built on the Ethereum network, providing users with a platform to securely swap their ERC-20 tokens. This project is developed by Abdulhakim Altunkaya for the BNB Patika Course.
 
-## Available Scripts
+## Contract Addresses
 
-In the project directory, you can run:
+PandaSwap Contract: 0xec4B63d19A1f18477952d95a0Dc71F64690fb332
+TokenA Contract: 0x423d6B08eabbd387d9F4b9593745F3A83dcb35fd
+TokenB Contract: 0x7622b5f39116A8208f8C8697e298b3038f87d8e4
+Owner Address: 0x6EcBD464d3200C08d1bC50027FC32a6Da6694641
 
-### `npm start`
+## Features :star:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Token Swapping: Users can swap any ERC-20 token pairs available on the platform.
+- Add/Remove Liquidity: Users can become liquidity providers by adding liquidity to their preferred token pairs and earn transaction fees.
+- Fee Charging: PandaSwap charges a small fee per transaction that is added back to the token reserves, rewarding liquidity providers.
+- Minimized Slippage: A safety mechanism is in place to prevent high slippage trades.
+- Balance and Reserve Checks: Users can check their token balances as well as the reserves of each token pair.
+  
+## Installation :wrench:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone this repository using `git clone https://github.com/yourusername/PandaSwap.git` (replace `yourusername` with your Github username).
 
-### `npm test`
+2. Install the dependencies by running `npm install`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Compile the contracts using `npx hardhat compile`.
 
-### `npm run build`
+## Testing :microscope:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Tests are written using the Chai testing framework. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Run `npx hardhat test` to execute the tests.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage :gear:
 
-### `npm run eject`
+Use `npx hardhat run scripts/deploy.js --network rinkeby` to deploy the contracts to the Rinkeby testnet. Make sure to replace `rinkeby` with your preferred Ethereum network.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contributing :handshake:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+We welcome contributions from the community. If you wish to contribute, please take a moment to review our **Contributing Guidelines**.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## License :scroll:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+PandaSwap is [MIT licensed](./LICENSE).
 
-## Learn More
+## Disclaimer :exclamation:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project is a work in progress and is not ready for production use. Use it at your own risk.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## About the Developer :man_technologist:
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+PandaSwap is developed by Abdulhakim Altunkaya as part of the BNB Patika Course. Feel free to reach out on [Github](https://github.com/abdulhakim-altunkaya) or [LinkedIn](https://www.linkedin.com/in/abdulhakim-luanda-b302a722b/).
