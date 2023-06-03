@@ -57,9 +57,9 @@ contract PandaSwap {
     }
 
     // Fee structure
-    uint public feePercentage = 10; // Fee percentage (default 10 means 0.1% fee)
+    uint public feePercentage = 1; // Fee percentage (default 1 means 1% fee)
     function updateFeePercentage(uint _fee) external onlyOwner {
-        require(_fee < 201, "fee cannot be bigger than %2");
+        require(_fee < 3, "fee cannot be bigger than %2");
         feePercentage = _fee;
         emit FeeUpdated(feePercentage);
     }
@@ -133,9 +133,14 @@ contract PandaSwap {
         // is dynamic thanks to this calculation below.
         uint amountOut = (amountInDecimalsAdded * reserveB) / reserveA;
 
+        //I am decreasing the amount from reserve before charging fee. 
+        //Because the fee will stay in the contract not in the reserves
+        reserveA += amountInDecimalsAdded;
+        reserveB -= amountOut;
+
         //calculating fee on mathematical proportion
-        // if fee is 10, it means we will charge %0.1 per tx on amountOut
-        uint txFee = amountOut / (feePercentage * 100);
+        // we will charge %1 per tx on amountOut
+        uint txFee = (amountOut * feePercentage) / 100;
         //deducting fee from amountOut
         amountOut -= txFee;
 
@@ -148,10 +153,6 @@ contract PandaSwap {
 
         // Transfer tokenOut from the contract to the sender
         IERC20(tokenB).transfer(msg.sender, amountOut);
-
-        // Updating reserves
-        reserveA += amountInDecimalsAdded;
-        reserveB -= amountOut;
 
         emit SwapHappened(tokenA, amountInDecimalsAdded, tokenB, amountOut, msg.sender);
     }
@@ -166,8 +167,13 @@ contract PandaSwap {
         //we calculate the amountOut as above.
         uint amountOut = (amountInDecimalsAdded * reserveA) / reserveB;
 
+        //I am decreasing the amount from reserve before charging fee. 
+        //Because the fee will stay in the contract not in the reserves
+        reserveB += amountInDecimalsAdded;
+        reserveA -= amountOut;
+
         //calculating fee as above
-        uint txFee = amountOut / (feePercentage * 100);
+        uint txFee = (amountOut * feePercentage) / 100;
         //deducting fee from amountOut
         amountOut -= txFee;
 
@@ -179,10 +185,6 @@ contract PandaSwap {
 
         //Transfer tokenOut from contract to the sender
         IERC20(tokenA).transfer(msg.sender, amountOut);
-
-        // update reserves
-        reserveB += amountInDecimalsAdded;
-        reserveA -= amountOut;
 
         emit SwapHappened(tokenB, amountInDecimalsAdded, tokenA, amountOut, msg.sender);
     }
@@ -200,7 +202,7 @@ contract PandaSwap {
         uint leftoverTokenB = amountTokenB - reserveB;
 
         //leftovers must be above 1 token to make tx meaningful
-        require(leftoverTokenA > 1*(10**18) || leftoverTokenB > 1*(10**18), "leftover token must be bigger than 1");
+        require(leftoverTokenA >= 1*(10**18) || leftoverTokenB >= 1*(10**18), "leftover token must be bigger than 1");
 
         //Transfer leftovers from contract to the sender
         IERC20(tokenA).transfer(msg.sender, leftoverTokenA);
@@ -213,12 +215,20 @@ contract PandaSwap {
         uint amountTokenB = IERC20(tokenB).balanceOf(address(this)) / (10**18);
         return (amountTokenA, amountTokenB);
     }
+    function getTokenABalance() external view returns(uint) {
+        uint amountTokenA = IERC20(tokenA).balanceOf(address(this));
+        return amountTokenA;
+    }
+    function getTokenBBalance() external view returns(uint) {
+        uint amountTokenB = IERC20(tokenB).balanceOf(address(this));
+        return amountTokenB;
+    }
 }
 /*
 
 Staking and rewarding mechanism for liquidity providers
 Pause the swap and remove liquidity functions
-
+Add swap and remove amounts must be less than reserves
 Anywhere to use Counters?**no need
 Anywhere to use block.timestamp?**no need
 You can add 10**18 to make calculation easier**done
@@ -237,7 +247,8 @@ contract address. Instead we can use transfer method on Token Contract. There ms
 account.
 
 Option 2: If we insist to use a transfer method on swap contract, then we can use transferFrom method.
-But before that we need to approve Swap contract to use _amount of TokenA user has.
+But before that we need to approve Swap contract to use _amount of TokenA user has. We can do that 
+not on the smart contract but on the frontend
     function addLiquidityTokenA(uint _amount) external {
         IERC20(tokenA).transferFrom(msg.sender, address(this), _amount);
     }

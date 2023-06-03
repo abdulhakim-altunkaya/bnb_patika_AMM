@@ -57,5 +57,4 @@ contract TokenA is ERC20Capped {
         return balanceOf(address(this)) / (10**18);
     }
 
-
 }

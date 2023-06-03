@@ -58,4 +58,5 @@ contract TokenB is ERC20Capped {
     }
 
 
+
 }
