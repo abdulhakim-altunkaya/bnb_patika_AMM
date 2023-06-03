@@ -1,6 +1,6 @@
 # PandaSwap :panda_face:
 
-PandaSwap is a Decentralized Exchange (DEX) built on the Ethereum network, providing users with a platform to securely swap their ERC-20 tokens. This project is developed by Abdulhakim Altunkaya for the BNB Patika Course.
+PandaSwap is a Decentralized Exchange (DEX) built on the BINANCE Smart Chain (BSC) network, providing users with a platform to securely swap their ERC-20 tokens. This project is developed by Abdulhakim Altunkaya for the BNB Patika Course.
 
 ## Contract Addresses
 
@@ -33,7 +33,7 @@ Run `npx hardhat test` to execute the tests.
 
 ## Usage :gear:
 
-Use `npx hardhat run scripts/deploy.js --network rinkeby` to deploy the contracts to the Rinkeby testnet. Make sure to replace `rinkeby` with your preferred Ethereum network.
+Use `npx hardhat run scripts/deploy.js --network bnb` to deploy the contracts to the BSC testnet.
 
 ## Contributing :handshake:
 
