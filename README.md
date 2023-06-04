@@ -5,8 +5,8 @@ PandaSwap is a Decentralized Exchange (DEX) built on the BINANCE Smart Chain (BS
 ## Contract Addresses
 
 <strong> PandaSwap Contract: </strong> 0xec4B63d19A1f18477952d95a0Dc71F64690fb332 <br>
-<strong> TokenA Contract: </strong> 0x423d6B08eabbd387d9F4b9593745F3A83dcb35fd <br>
-<strong> TokenB Contract: </strong> 0x7622b5f39116A8208f8C8697e298b3038f87d8e4 <br>
+<strong> TokenA Contract: </strong> 0xEB3d3b84F5c6D0db85c5e0666056858B283f82f3 <br>
+<strong> TokenB Contract: </strong> 0xCdD11a615072F4F09b2970c44dDd8b3F5226e695 <br>
 <strong> Owner Address: </strong> 0x6EcBD464d3200C08d1bC50027FC32a6Da6694641
 
 ## Features :star:

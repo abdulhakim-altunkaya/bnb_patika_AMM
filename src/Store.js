@@ -1,24 +1,33 @@
 import { create } from "zustand";
 import { ethers } from "ethers";
-import { CONTRACT_ADDRESS } from "./ContractAddress";
-import { CONTRACT_ABI } from "./ContractABI";
-
+import { ABITokenA } from "./components/addressABI/ABITokenA";
+import { ABITokenB } from "./components/addressABI/ABITokenB";
+import { ABIPanda } from "./components/addressABI/ABIPanda";
+import { AddressTOKA } from "./components/addressABI/AddressTOKA";
+import { AddressTOBA } from "./components/addressABI/AddressTOBA";
+import { AddressPanda } from "./components/addressABI/AddressPanda";
 
 let signer;
 let provider;
-let contract1;
+let contractPanda1;
+let contractTokenA1;
+let contractTokenB1;
 
 const connectContract = async () => {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     signer = provider.getSigner();
-    contract1 = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+    contractPanda1 = new ethers.Contract(AddressPanda, ABIPanda, signer);
+    contractTokenA1 = new ethers.Contract(AddressTOKA, ABITokenA, signer);
+    contractTokenB1 = new ethers.Contract(AddressTOBA, ABITokenB, signer);
 }
 
 connectContract();
 
 export const useAccount = create( () => {
   {
-    contract: contract1
+    contractPanda: contractPanda1,
+    contractTokenA: contractTokenA1,
+    contractTokenB: contractTokenB1
   }
 })
 

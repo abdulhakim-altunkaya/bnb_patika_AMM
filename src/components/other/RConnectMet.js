@@ -26,10 +26,10 @@ function RConnectMet() {
         <>
           <div className='contractDetailsDiv'>
               <span>Your Metamask Account:</span>  <br />{account} <br />
-              <span>TokenA address:</span> 0x423d6B08eabbd387d9F4b9593745F3A83dcb35fd <br />
+              <span>TokenA address:</span> 0xEB3d3b84F5c6D0db85c5e0666056858B283f82f3 <br />
               <span>TokenA symbol:</span>  TOKA <br />
               <span>TokenA cap: </span>  1000000 <br />
-              <span>TokenB address:</span> 0x7622b5f39116A8208f8C8697e298b3038f87d8e4 <br />
+              <span>TokenB address:</span> 0xCdD11a615072F4F09b2970c44dDd8b3F5226e695 <br />
               <span>TokenB symbol:</span>  TOBA <br />
               <span>TokenB cap: </span>  1000000 <br />
               <span>Token Standard:</span>  ERC20 <br />

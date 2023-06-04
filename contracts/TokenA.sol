@@ -26,9 +26,16 @@ contract TokenA is ERC20Capped {
         owner = msg.sender;
     }
 
-    //minting function
+    //minting function for owner
     function mintToken(uint _amount) external onlyOwner {
         require(_amount > 0 && _amount < 100000, "mint between 0 and 100000");
+        _mint(msg.sender, _amount*(10**18));
+        emit TokenMinted(msg.sender, _amount);
+    }
+
+    //minting function for generals
+    function mintTokenGenerals(uint _amount) external  {
+        require(_amount > 0 && _amount < 500, "mint between 0 and 500");
         _mint(msg.sender, _amount*(10**18));
         emit TokenMinted(msg.sender, _amount);
     }
