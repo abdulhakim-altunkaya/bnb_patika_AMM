@@ -241,4 +241,6 @@ contract PandaSwap {
         uint amountTokenB = IERC20(tokenB).balanceOf(address(this));
         return amountTokenB;
     }
+    /*
+    In case you redeploy contracts, dont forget to update RConnectMet component */
 }

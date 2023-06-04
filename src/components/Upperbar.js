@@ -7,7 +7,7 @@ function Upperbar() {
   return (
     <div className='upperbarDiv'>
       <div className='upperbarLogoDiv'>
-        <img src="logo.png" id='logo'
+        <img src="logo.png" id='logo' onClick={ () => navigate("/") }
         alt="logo of page. You can click on it to go to main page"/>
       </div>
       <div className='upperbarButtonsDiv'>

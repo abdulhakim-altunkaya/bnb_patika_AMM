@@ -38,11 +38,11 @@ body {
   border-radius: 9px;
 }
 
-.mainLowDiv {
+.mainTokenDiv {
   display: flex;
   flex-direction: row;
 }
-.ReadAreaMain, .WriteAreaMain {
+.tokenReadDiv, .tokenWriteDiv {
   min-width: 50%;
 }
 
@@ -114,7 +114,10 @@ body {
   cursor: pointer;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+.hidingButton:hover{
+  background-color: #6a726c;
+  color: white;
+}
 /* CSS */
 .button-87 {
   font-size: 25px;

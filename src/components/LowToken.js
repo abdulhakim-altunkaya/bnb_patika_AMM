@@ -1,8 +1,13 @@
-import React from 'react'
+import React from 'react';
+import TokenRead from "./other/TokenRead";
+import TokenWrite from "./other/TokenWrite";
 
 function LowToken() {
   return (
-    <div>LowToken</div>
+    <div className='mainTokenDiv'>
+      <TokenRead />
+      <TokenWrite />
+    </div>
   )
 }
 
