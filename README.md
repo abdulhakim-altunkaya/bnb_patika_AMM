@@ -1,6 +1,6 @@
 # PandaSwap :panda_face:
 
-PandaSwap is a Decentralized Exchange (DEX) built on the BINANCE Smart Chain (BSC) network, providing users with a platform to securely swap their ERC-20 tokens. This project is developed by Abdulhakim Altunkaya for the BNB Patika Course.
+PandaSwap is a Decentralized Exchange (DEX) built on the BINANCE Smart Chain (BSC) network, providing users with a platform to securely swap their ERC-20 tokens. The Dex is based on Automated Market Maker (AMM) system. This project is developed by Abdulhakim Altunkaya for the BNB Patika Course.
 
 ## Contract Addresses
 

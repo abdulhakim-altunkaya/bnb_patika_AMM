@@ -5,8 +5,6 @@ body {
   margin: 0;
   font-family: "Quicksand", 'Trebuchet MS';
   background-image: url("../public/background.png");
-  background-repeat: no-repeat;
-  background-size: 100%;
 }
 .App {
   height: 100%;
@@ -81,7 +79,6 @@ body {
   min-height: 3vh;
   background-color: #b2beb5;
   margin-top: 5px;
-  opacity: 0.3;
 }
 
 .contractDetailsDiv span {
