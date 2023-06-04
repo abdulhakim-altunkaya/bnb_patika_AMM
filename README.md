@@ -50,3 +50,9 @@ This project is a work in progress and is not ready for production use. Use it a
 ## About the Developer :man_technologist:
 
 PandaSwap is developed by Abdulhakim Altunkaya as part of the BNB Patika Course. Feel free to reach out on [Github](https://github.com/abdulhakim-altunkaya) or [LinkedIn](https://www.linkedin.com/in/abdulhakim-luanda-b302a722b/).
+
+Panda icon: <a href="https://www.flaticon.com/free-icons/panda" title="panda icons">Panda icons created by Freepik - Flaticon</a>
+Background image: <a href="https://www.pexels.com/photo/yellow-blue-and-green-wooden-wall-decor-450066/" > Photo by Tirachard Kumtanom - PEXELS </a>
+
+
+
