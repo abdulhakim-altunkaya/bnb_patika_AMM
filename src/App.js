@@ -1,3 +1,4 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import Upperbar from './components/Upperbar';
 import Lowerbar from "./components/Lowerbar";
 
@@ -5,8 +6,12 @@ import Lowerbar from "./components/Lowerbar";
 function App() {
   return (
     <div className="App">
-      <Upperbar />
-      <Lowerbar />
+      
+      <Router>
+        <Upperbar />
+        <Lowerbar />
+      </Router>
+
     </div>
   );
 }

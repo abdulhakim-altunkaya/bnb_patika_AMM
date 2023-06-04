@@ -64,6 +64,7 @@ body {
   border-radius: 8px; 
   font-family: 'Dosis', sans-serif;
   transition-duration: 0.4s;
+  user-select: none;
 }
 .button6:hover {
   font-weight: bolder;
