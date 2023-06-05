@@ -1,1 +1,1 @@
-export const AddressTOKA = "0xEB3d3b84F5c6D0db85c5e0666056858B283f82f3"
+export const AddressTOKA = "0x3c16BE54a7969f2850F7be37cdcb5592e384D57C"
