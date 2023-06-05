@@ -24,9 +24,9 @@ const connectContract = async () => {
 connectContract();
 
 export const useAccount = create(() => ({
-  contractPanda: contractPanda1,
-  contractTokenA: contractTokenA1,
-  contractTokenB: contractTokenB1,
+  contractPanda2: contractPanda1,
+  contractTokenA2: contractTokenA1,
+  contractTokenB2: contractTokenB1,
 }));
 
 
