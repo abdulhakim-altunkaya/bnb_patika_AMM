@@ -1,8 +1,11 @@
 import React from 'react'
+import Wtoka from "./Wtoka";
 
 function TokenWrite() {
   return (
-    <div className='tokenWriteDiv'>TokenWrite</div>
+    <div className='tokenWriteDiv'>
+      <Wtoka />
+    </div>
   )
 }
 
