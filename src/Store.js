@@ -23,13 +23,11 @@ const connectContract = async () => {
 
 connectContract();
 
-export const useAccount = create( () => {
-  {
-    contractPanda: contractPanda1,
-    contractTokenA: contractTokenA1,
-    contractTokenB: contractTokenB1
-  }
-})
+export const useAccount = create(() => ({
+  contractPanda: contractPanda1,
+  contractTokenA: contractTokenA1,
+  contractTokenB: contractTokenB1,
+}));
 
 
 
