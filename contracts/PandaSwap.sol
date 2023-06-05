@@ -52,7 +52,7 @@ contract PandaSwap {
     uint public reserveB;
 
     //two view functions for frontend
-    function getReserveA() external view returns(uint, uint) {
+    function getReserves() external view returns(uint, uint) {
         uint reserveAnew = reserveA / (10**18);
         uint reserveBnew = reserveB / (10**18);
         return (reserveAnew, reserveBnew);

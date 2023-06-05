@@ -224,7 +224,7 @@ export const ABIPanda = [
   },
   {
     "inputs": [],
-    "name": "getReserveA",
+    "name": "getReserves",
     "outputs": [
       {
         "internalType": "uint256",
