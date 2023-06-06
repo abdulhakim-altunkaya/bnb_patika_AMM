@@ -249,4 +249,9 @@
         -moz-appearance: textfield;
       }
 
+      /*span in token area*/
+      .spanTokens {
+        margin-left: 14px;
+      }
+
 }

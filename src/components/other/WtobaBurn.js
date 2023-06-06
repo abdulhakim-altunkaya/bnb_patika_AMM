@@ -22,7 +22,7 @@ function WtobaBurn() {
 
   return (
     <div>
-      <button onClick={burnToken} className='button4'>Burn TokenA</button>
+      <button onClick={burnToken} className='button4'>Burn TokenB</button>
       <input type="number" placeholder='enter amount' className='inputFields'
         value={amount} onChange={ e => setAmount(e.target.value)}/> {message}
     </div>

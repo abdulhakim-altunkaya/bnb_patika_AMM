@@ -17,7 +17,7 @@ function WtokaMint() {
     } else {
       await contractTokenA.mintToken(amount1);
       setMessage("success, you minted", amount1," tokens");
-    }
+    } 
   }
   return (
     <div>

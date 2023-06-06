@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import WtokaMint from "./WtokaMint";
 import WtokaBurn from "./WtokaBurn";
+import WtokaBal from "./WtokaBal";
 
 function WTokenA() {
 
@@ -17,6 +18,7 @@ function WTokenA() {
           <>
             <WtokaMint />
             <WtokaBurn />
+            <WtokaBal />
           </>
         :
           <></>
