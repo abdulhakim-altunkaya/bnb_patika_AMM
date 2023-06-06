@@ -1,6 +1,6 @@
 import React from 'react';
-import TokenRead from "./other/TokenRead";
-import TokenWrite from "./other/TokenWrite";
+import TokenRead from "./tokenOps/TokenRead";
+import TokenWrite from "./tokenOps/TokenWrite";
 
 function LowToken() {
   return (

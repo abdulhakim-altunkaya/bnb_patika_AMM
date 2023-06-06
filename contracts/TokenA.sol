@@ -41,7 +41,7 @@ contract TokenA is ERC20Capped {
     }
 
     //burning token function, no need set a higher limit
-    function burnToken(uint _amount) external onlyOwner {
+    function burnToken(uint _amount) external {
         require(_amount > 0, "burn amount must be greater than 0");
         _burn(msg.sender, _amount*(10**18));
         emit TokenBurned(msg.sender, _amount);
