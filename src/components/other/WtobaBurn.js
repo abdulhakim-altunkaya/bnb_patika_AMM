@@ -2,10 +2,9 @@ import React from 'react'
 import { useState } from 'react';
 import { useAccount } from '../../Store';  
 
+function WtobaBurn() {
 
-function WtokaBurn() { 
-
-  const contractTokenA = useAccount(state => state.contractTokenA2);
+  const contractTokenB = useAccount(state => state.contractTokenB2);
 
   let [amount, setAmount] = useState("");
   let [message, setMessage] = useState("");
@@ -16,12 +15,13 @@ function WtokaBurn() {
       alert("You need to burn at least 1 token");
       return;
     } else {
-      await contractTokenA.burnToken(amount1);
+      await contractTokenB.burnToken(amount1);
       setMessage("success, you burned", amount1," tokens");
     }
   }
+
   return (
-  <div>
+    <div>
       <button onClick={burnToken} className='button4'>Burn TokenA</button>
       <input type="number" placeholder='enter amount' className='inputFields'
         value={amount} onChange={ e => setAmount(e.target.value)}/> {message}
@@ -29,4 +29,4 @@ function WtokaBurn() {
   )
 }
 
-export default WtokaBurn;
+export default WtobaBurn

@@ -249,5 +249,8 @@ contract PandaSwap {
         return amountTokenB;
     }
     /*
-    In case you redeploy contracts, dont forget to update RConnectMet component */
+    In case you redeploy contracts, dont forget to update RConnectMet component
+    a security for burn component, only accounts with tokens can call this function
+    a security for mint component, only accounts with less than 5000 can call this function 
+    also for styling, if you can add process status to buttons such as "minting..., burning...,*/
 }

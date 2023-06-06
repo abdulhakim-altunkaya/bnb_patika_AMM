@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAccount } from '../../Store';  
-import { ethers } from "ethers";
 
 
 function WtokaMint() {
@@ -17,14 +16,14 @@ function WtokaMint() {
       return;
     } else {
       await contractTokenA.mintToken(amount1);
-      setMessage("success, you minted", amount," tokens");
+      setMessage("success, you minted", amount1," tokens");
     }
   }
   return (
     <div>
       <button onClick={mintToken} className='button4'>Mint TokenA</button>
       <input type="number" placeholder='Mint between 1-499' className='inputFields'
-       onChange={ e => setAmount(e.target.value)}/> {message}
+         value={amount} onChange={ e => setAmount(e.target.value)}/> {message}
     </div>
   )
 }

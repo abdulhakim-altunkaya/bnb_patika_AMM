@@ -38,10 +38,10 @@ function RBalances() {
       { displayStatus === true ?
         <>
           <div>
-              <span>User TokenA Balance:</span>{balance1} <br />
-              <span>User TokenB Balance:</span>{balance2} <br />
-              <span>PandaSwap Pool TokenA Balance:</span>  <br />{balance3} <br />
-              <span>PandaSwap Pool TokenB Balance:</span>  <br />{balance4} <br />
+              <span>User TokenA Balance: </span>{balance1} <br />
+              <span>User TokenB Balance: </span>{balance2} <br />
+              <span>PandaSwap Pool TokenA Balance: </span>  <br />{balance3} <br />
+              <span>PandaSwap Pool TokenB Balance: </span>  <br />{balance4} <br />
           </div>
           <button onClick={hideDetails} className='hidingButton'>Hide Details</button>
         </>
