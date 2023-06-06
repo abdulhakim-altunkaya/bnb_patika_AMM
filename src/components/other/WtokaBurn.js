@@ -11,7 +11,7 @@ function WtokaBurn() {
 
   return (
   <div>
-      <button onClick={burnToken} className='button4'>Burn TokenA</button> {amount}
+      <button onClick={burnToken} className='button4'>Burn TokenA</button>
       <input type="number" placeholder='enter amount' className='inputFields'
         value={amount} onChange={ e => setAmount(e.target.value)}/>
     </div>

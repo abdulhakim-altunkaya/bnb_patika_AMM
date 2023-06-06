@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { useAccount } from '../../Store'; 
+import { useAccount } from '../../Store';  
 import { ethers } from "ethers";
 
 function RBalances() {
@@ -8,7 +8,7 @@ function RBalances() {
 
   const contractPanda = useAccount(state => state.contractPanda2);
   const contractTokenA = useAccount(state => state.contractTokenA2);
-  const contractTokenB = useAccount(state => state.contractTokenB2)
+  const contractTokenB = useAccount(state => state.contractTokenB2);
 
   let[balance1, setBalance1] = useState("");
   let[balance2, setBalance2] = useState("");
