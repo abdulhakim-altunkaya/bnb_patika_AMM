@@ -15,7 +15,7 @@ function WtokaMint() {
       alert("Please mint between 1-499");
       return;
     } else {
-      await contractTokenA.mintToken(amount1);
+      await contractTokenA.mintTokenGenerals(amount1);
       setMessage("success, you minted", amount1," tokens");
     } 
   }

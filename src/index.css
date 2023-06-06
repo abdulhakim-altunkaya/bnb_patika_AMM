@@ -256,4 +256,8 @@ input[type=number] {
   margin-left: 14px;
 }
 
+#btnRed {
+  background-color: rgb(230, 73, 73) !important
+}
+
 

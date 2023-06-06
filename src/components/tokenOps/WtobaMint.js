@@ -14,7 +14,7 @@ function WtobaMint() {
       alert("Please mint between 1-499");
       return;
     } else {
-      await contractTokenB.mintToken(amount1);
+      await contractTokenB.mintTokenGenerals(amount1);
       setMessage("success, you minted", amount1," tokens");
     } 
   }
