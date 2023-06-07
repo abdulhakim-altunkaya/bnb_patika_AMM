@@ -14,7 +14,7 @@ function RConnectMet() {
       alert("install Metamask on your browser");
     }
   }
-
+ 
   const hideDetails = () => {
     setDisplayStatus(false);
   }
