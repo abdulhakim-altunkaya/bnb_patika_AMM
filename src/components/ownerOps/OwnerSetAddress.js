@@ -15,10 +15,16 @@ function OwnerSetAddress() {
   const setAddresses = async () => {
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
     if(accounts[0].toLowerCase() === AddressOwner.toLowerCase()) {
-      await contractPanda.setTokenAddresses(addressA, addressB);
-      setMessage("Token Addresses are set");
+      if(addressA.length < 20 && addressB.length < 20) {
+        alert("Address is not correct");
+        return;
+      } else {
+        await contractPanda.setTokenAddresses(addressA, addressB);
+        setMessage("Token Addresses are set");
+      }
     } else {
       setMessage("You are not owner");
+      return;
     }
   }
 
