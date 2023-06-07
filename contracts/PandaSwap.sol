@@ -254,5 +254,7 @@ contract PandaSwap {
     a security for mint component, only accounts with less than 5000 can call this function 
     also for styling, if you can add process status to buttons such as "minting..., burning...,
     you can update fee percentage for smaller percentages
-    you can add owner transfer function for 3 contracts*/
+    you can add owner transfer function for 3 contracts
+    update fee percentage structure
+    add owner check to owner components*/
 }
