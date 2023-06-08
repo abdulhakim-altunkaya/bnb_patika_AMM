@@ -18,7 +18,9 @@ function OwnerRemoveA() {
       await contractPanda.removeLiquidityTokenA(amount1);
       setMessage("Pool decreased by", amount1," TOKA");
     } else {
+      alert("You are not owner");
       setMessage("You are not owner");
+      return;
     }
   }
 
