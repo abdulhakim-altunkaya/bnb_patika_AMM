@@ -215,7 +215,7 @@ contract PandaSwap {
     }
 
     //As this an AMM of TokenA and TokenB, I dont need to use parameter area to assign
-    //any dynamic token address
+    //any dynamic token address 
     function withdrawLeftoverTokens() external isPaused onlyOwner {
 
         //calculating the general amounts (reserve + leftover)
