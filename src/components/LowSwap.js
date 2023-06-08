@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import RBalances from "./swapOps/RBalances";
 
 function LowSwap() {
   return (
-    <div>LowSwap</div>
+    <div>
+      <RBalances />
+    </div>
   )
 }
 

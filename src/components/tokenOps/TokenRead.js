@@ -1,6 +1,5 @@
 import React from 'react';
 import RConnectMet from './RConnectMet';
-import RBalances from "./RBalances";
 
 function TokenRead() {
   return (
@@ -11,7 +10,6 @@ function TokenRead() {
           3. Make sure you have BNB test tokens.
         </p>
         <RConnectMet />
-        <RBalances />
     </div>
   )
 }

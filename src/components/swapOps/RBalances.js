@@ -23,7 +23,7 @@ function RBalances() {
 
   return (
     <div>
-      <button onClick={getBalances} className='button9'>GET BALANCES</button>
+      <button onClick={getBalances} className='button10'>GET BALANCES</button>
       { displayStatus === true ?
         <>
           <div>
