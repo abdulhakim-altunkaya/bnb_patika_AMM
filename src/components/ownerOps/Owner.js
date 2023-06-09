@@ -7,6 +7,9 @@ import OwnerUpdateFee from "./OwnerUpdateFee";
 import OwnerRemoveA from "./OwnerRemoveA";
 import OwnerRemoveB from "./OwnerRemoveB";
 import OwnerLeftovers from "./OwnerLeftovers";
+import OwnerNewPanda from './OwnerNewPanda';
+import OwnerNewToba from './OwnerNewToba';
+import OwnerNewToka from './OwnerNewToka';
 import { AddressOwner } from "../addressABI/AddressOwner";
 
 
@@ -41,7 +44,9 @@ function Owner() {
                     <OwnerRemoveA />
                     <OwnerRemoveB />
                     <OwnerLeftovers />
-
+                    <OwnerNewPanda />
+                    <OwnerNewToba />
+                    <OwnerNewToka />
                 </>
                 :
                 <></>

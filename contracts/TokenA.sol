@@ -20,6 +20,10 @@ contract TokenA is ERC20Capped {
         }
         _;
     }
+    function transferOwner(address _newOwner) external onlyOwner {
+        require(_newOwner != address(0), "not valid address");
+        owner = _newOwner;
+    }
 
     //creating token
     constructor(uint cap) ERC20("TokenA", "TOKA") ERC20Capped(cap*(10**18)) {
