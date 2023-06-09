@@ -15,8 +15,17 @@ function WtobaBurn() {
       alert("You need to burn at least 1 token");
       return;
     } else {
-      await contractTokenB.burnToken(amount1);
-      setMessage("success, you burned", amount1," tokens");
+      let userBalance = await contractTokenB.getYourBalance();
+      let userBalance2 = userBalance.toString();
+      let userBalance3 = parseInt(userBalance2);
+      if(userBalance3 < 1) {
+        alert("you dont have TokenB");
+        return;
+      } else {
+        await contractTokenB.burnToken(amount1);
+        setMessage("success, you burned", amount1," tokens");
+      }
+
     }
   }
 

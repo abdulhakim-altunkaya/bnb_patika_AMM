@@ -54,7 +54,7 @@ contract TokenA is ERC20Capped {
 
     function getContractAddress() external view returns(address) {
         return address(this);
-    }
+    } 
 
     function getYourBalance() external view returns(uint) {
         return balanceOf(msg.sender) / (10**18);
