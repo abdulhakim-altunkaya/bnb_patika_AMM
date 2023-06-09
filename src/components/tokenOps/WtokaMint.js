@@ -10,6 +10,13 @@ function WtokaMint() {
   let [message, setMessage] = useState("");
 
   const mintToken = async () => {
+    let userBalance = await contractTokenA.getYourBalance();
+    let userBalance2 = userBalance.toString();
+    let userBalance3 = parseInt(userBalance2);
+    if(userBalance3 > 1000) {
+      alert("you have more than 1000 TOKA. You cannot mint more");
+      return;
+    }
     let amount1 = parseInt(amount);
     if(amount1 > 499) {
       alert("Please mint between 1-499");
