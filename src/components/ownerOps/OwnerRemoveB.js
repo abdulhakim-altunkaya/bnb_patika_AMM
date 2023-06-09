@@ -13,14 +13,14 @@ function OwnerRemoveB() {
 
   const decreaseB = async () => {
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-    if(accounts[0].toLowerCase() === AddressOwner.toLowerCase()) {
-      let amount1 = parseInt(amount);
-      await contractPanda.removeLiquidityTokenB(amount1);
-      setMessage("Pool decreased by", amount1," TOBA");
-    } else {
+    if(accounts[0].toLowerCase() !== AddressOwner.toLowerCase()) {
       alert("You are not owner");
       setMessage("You are not owner");
       return;
+    } else {
+      let amount1 = parseInt(amount);
+      await contractPanda.removeLiquidityTokenB(amount1);
+      setMessage("Pool decreased by", amount1," TOBA");
     }
   }
 

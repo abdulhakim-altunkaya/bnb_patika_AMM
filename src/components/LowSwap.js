@@ -11,6 +11,7 @@ function LowSwap() {
       <AddLiquidity />
       <SwapAwithB />
       <SwapBwithA />
+      <p id='aboutText'>Project created for BNB-Patika course by Abdulhakim Altunkaya. 2023</p>
     </div>
   )
 }

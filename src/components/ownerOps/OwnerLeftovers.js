@@ -11,13 +11,12 @@ function OwnerLeftovers() {
 
   const getLeftovers = async () => {
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-    if(accounts[0].toLowerCase() === AddressOwner.toLowerCase()) {
-      await contractPanda.withdrawLeftoverTokens();
-    } else {
+    if(accounts[0].toLowerCase() !== AddressOwner.toLowerCase()) {
       setMessage("You are not owner");
       return;
+    } else {
+      await contractPanda.withdrawLeftoverTokens();
     }
-
   }
 
   return (

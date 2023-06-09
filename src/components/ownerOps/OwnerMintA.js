@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useAccount } from '../../Store';  
-
+import { AddressOwner } from "../addressABI/AddressOwner";
 
 function OwnerMintA() {
+
+  const { ethereum } = window;
 
   const contractTokenA = useAccount(state => state.contractTokenA2);
 
@@ -10,9 +12,15 @@ function OwnerMintA() {
   let [message, setMessage] = useState("");
 
   const mintToken = async () => {
-    let amount1 = parseInt(amount);
-    await contractTokenA.mintToken(amount1);
-    setMessage("success, you minted", amount1," tokens");
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+    if(accounts[0].toLowerCase() !== AddressOwner.toLowerCase()) {
+      setMessage("You are not owner");
+      return;
+    } else {
+      let amount1 = parseInt(amount);
+      await contractTokenA.mintToken(amount1);
+      setMessage("success, you minted", amount1," tokens");
+    }
   }
 
   return (

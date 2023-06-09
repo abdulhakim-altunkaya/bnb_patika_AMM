@@ -12,15 +12,14 @@ function OwnerUpdateFee() {
 
   const changeFee = async () => {
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-    if(accounts[0].toLowerCase() === AddressOwner.toLowerCase()) {
+    if(accounts[0].toLowerCase() !== AddressOwner.toLowerCase()) {
+      setMessage("You are not owner");
+      return;
+    } else {
       let amount1 = parseInt(amount);
       await contractPanda.updateFeePercentage(amount1);
       setMessage("success, fee updated");
-    } else {
-      setMessage("You are not owner");
-      return;
     }
-
   }
 
   return (

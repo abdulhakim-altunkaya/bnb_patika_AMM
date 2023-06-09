@@ -7,14 +7,24 @@ import OwnerUpdateFee from "./OwnerUpdateFee";
 import OwnerRemoveA from "./OwnerRemoveA";
 import OwnerRemoveB from "./OwnerRemoveB";
 import OwnerLeftovers from "./OwnerLeftovers";
+import { AddressOwner } from "../addressABI/AddressOwner";
 
 
 function Owner() {
 
+    const { ethereum } = window;
+
     let [displayDetails, setDisplayDetails] = useState(false);
 
-    const toggleDetails = () => {
-      setDisplayDetails(!displayDetails);
+    const toggleDetails = async () => {
+        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+        if(accounts[0].toLowerCase() !== AddressOwner.toLowerCase()) {
+            alert("you are not owner");
+            return;
+        } else {
+            setDisplayDetails(!displayDetails);
+        }
+      
     }
 
     return (
