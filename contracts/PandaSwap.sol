@@ -82,7 +82,7 @@ contract PandaSwap {
         require(_fee < 3, "fee cannot be bigger than %2");
         feePercentage = _fee;
         emit FeeUpdated(feePercentage);
-    }
+    } 
 
     function addLiquidity(uint _amountA, uint _amountB) external isPaused {
         require(_amountA > 0 && _amountB > 0, "amounts of tokenA and tokenB must be greater than 0");

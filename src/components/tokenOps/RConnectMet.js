@@ -12,6 +12,7 @@ function RConnectMet() {
       setDisplayStatus(true)
     } else {
       alert("install Metamask on your browser");
+      return;
     }
   }
  

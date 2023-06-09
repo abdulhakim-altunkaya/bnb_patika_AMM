@@ -15,6 +15,7 @@ function OwnerPause() {
       await contractPanda.pauseEverything();
     } else {
       setMessage("You are not owner");
+      return;
     }
 
   }
