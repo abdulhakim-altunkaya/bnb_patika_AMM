@@ -7,12 +7,12 @@ function SwapAwithB() {
 
   let [message, setMessage] = useState("");
   let [amountA, setAmountA] = useState("");
-  let [amountAmin, setAmountAmin] = useState("");
+  let [amountBmin, setAmountBmin] = useState("");
 
   const swapA = async (e) => {
     e.preventDefault();
     let amount1 = parseInt(amountA);
-    let amount2 = parseInt(amountAmin);
+    let amount2 = parseInt(amountBmin);
     if(amount1 < 1 ) {
       alert("Please add more than 1 TOKA");
       return;
@@ -33,14 +33,15 @@ function SwapAwithB() {
       <p>To swap TokenA with TokenB: <br />
         1. Enter the amount of TokenA you want to swap <br />
         2. Enter a minimum amount TokenB that you desire. This <br />
-        minimum amount is only a security caution to protect you against slippage.
+        minimum amount is only a security caution to protect you against slippage. <br />
+        You can also follow the same logic for swapping B with A.
       </p>
       <form onSubmit={swapA}>
         <input type='submit' value={"Swap A with B"} className='button10' />
-        <input type="number" className='inputFields' placeholder='enter TOKA amount'
+        <input type="number" className='inputFields' placeholder='enter TOKA'
           value={amountA} onChange={ e => setAmountA(e.target.value)} required />
-        <input type="number" className='inputFields' placeholder='enter min TOBA amount'
-          value={amountAmin} onChange={ e => setAmountAmin(e.target.value)} required /> <br />
+        <input type="number" className='inputFields' placeholder='enter min TOBA'
+          value={amountBmin} onChange={ e => setAmountBmin(e.target.value)} required /> <br />
           {message}
       </form>
     </div>
