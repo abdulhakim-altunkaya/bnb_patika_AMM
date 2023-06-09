@@ -1,9 +1,50 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useAccount } from '../../Store';
 
 function SwapAwithB() {
+
+  const contractPanda = useAccount(state => state.contractPanda2);
+
+  let [message, setMessage] = useState("");
+  let [amountA, setAmountA] = useState("");
+  let [amountAmin, setAmountAmin] = useState("");
+
+  const swapA = async (e) => {
+    e.preventDefault();
+    let amount1 = parseInt(amountA);
+    let amount2 = parseInt(amountAmin);
+    if(amount1 < 1 ) {
+      alert("Please add more than 1 TOKA");
+      return;
+    } else {
+      if(amount2 < 1) {
+        alert("Min desired TOBA amount must be bigger than 1");
+        return;
+      } else {
+        await contractPanda.swapAwithB(amount1, amount2);
+        setMessage("success, you swapped TOKA with TOBA");
+      }
+    }
+  }
+
   return (
-    <div>SwapAwithB</div>
+    <div>
+      <br />
+      <p>To swap TokenA with TokenB: <br />
+        1. Enter the amount of TokenA you want to swap <br />
+        2. Enter a minimum amount TokenB that you desire. This <br />
+        minimum amount is only a security caution to protect you against slippage.
+      </p>
+      <form onSubmit={swapA}>
+        <input type='submit' value={"Swap A with B"} className='button10' />
+        <input type="number" className='inputFields' placeholder='enter TOKA amount'
+          value={amountA} onChange={ e => setAmountA(e.target.value)} required />
+        <input type="number" className='inputFields' placeholder='enter min TOBA amount'
+          value={amountAmin} onChange={ e => setAmountAmin(e.target.value)} required /> <br />
+          {message}
+      </form>
+    </div>
   )
 }
 
-export default SwapAwithB
+export default SwapAwithB 

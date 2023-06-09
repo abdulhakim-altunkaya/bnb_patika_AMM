@@ -256,5 +256,7 @@ contract PandaSwap {
     you can update fee percentage for smaller percentages
     you can add owner transfer function for 3 contracts
     update fee percentage structure
-    add owner check to owner components*/
+    add owner check to owner components
+    change if statement order to include return
+    Make token assignments dynamic*/
 }
