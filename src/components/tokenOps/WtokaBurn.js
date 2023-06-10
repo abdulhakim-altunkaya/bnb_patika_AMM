@@ -11,22 +11,24 @@ function WtokaBurn() {
   let [message, setMessage] = useState("");
 
   const burnToken = async () => {
+    if(amount === "") {
+      alert("Please mint at least 1");
+      return;
+    }
     let amount1 = parseInt(amount);
     if(amount1 < 1) {
       alert("You need to burn at least 1 token");
       return;
-    } else {
-      let userBalance = await contractTokenA.getYourBalance();
-      let userBalance2 = userBalance.toString();
-      let userBalance3 = parseInt(userBalance2);
-      if(userBalance3 < 1) {
-        alert("you dont have TokenA");
-        return;
-      } else {
-        await contractTokenA.burnToken(amount1);
-        setMessage("success, you burned", amount1," tokens");
-      }
     }
+    let userBalance = await contractTokenA.getYourBalance();
+    let userBalance2 = userBalance.toString();
+    let userBalance3 = parseInt(userBalance2);
+    if(userBalance3 < 1) {
+      alert("you dont have TokenA");
+      return;
+    }
+    await contractTokenA.burnToken(amount1);
+    setMessage("success, you burned", amount1," tokens");
   }
   return (
   <div>

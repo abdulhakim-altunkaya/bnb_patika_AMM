@@ -1,0 +1,43 @@
+import React, { useState } from 'react';
+import { useAccount } from '../../Store';  
+import { AddressPanda } from "../addressABI/AddressPanda";
+
+function ApproveToka() {
+
+  const contractTokenA = useAccount(state => state.contractTokenA2);
+
+  let [amount, setAmount] = useState("");
+  let [message, setMessage] = useState("");
+
+  const approvePanda = async () => {
+    if(amount === "") {
+      alert("Minimum approval amount is 1");
+      return;
+    }
+    let userBalance = await contractTokenA.getYourBalance();
+    let userBalance2 = userBalance.toString();
+    let userBalance3 = parseInt(userBalance2);
+    if(userBalance3 < 1) {
+      alert("you have enough TOKA to add to the pool. First go to the Token Operations section and mint some TOKA");
+      return;
+    }
+    let amount1 = parseInt(amount);
+    if(amount1 < 1) {
+      alert("Minimum approval amount is 1");
+      return;
+    }
+    await contractTokenA.approvePanda(AddressPanda, amount1);
+    setMessage("success, you approved Pool with", amount1," tokens");
+  }
+  return (
+    <div>
+      <p>Before adding liquidity to the pool, you need to "approve" PandaSwap contract <br />
+      for the amount of TokenA and TokenB that you want to deposit</p>
+      <button onClick={approvePanda} className='button10'>Approve TokenA</button>
+      <input type="number" placeholder='TOKA amount' className='inputFields'
+         value={amount} onChange={ e => setAmount(e.target.value)}/> {message}
+    </div>
+  )
+}
+
+export default ApproveToka;

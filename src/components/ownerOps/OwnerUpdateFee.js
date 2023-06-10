@@ -24,7 +24,7 @@ function OwnerUpdateFee() {
 
   return (
     <div>
-        <p>Fee percentage update: for example, enter "4" for 0.4%. Maximum is 2%. Default is 0.3%</p>
+        <p>Fee percentage update: for example, enter "4" for 0.4%. Maximum is 2.9%. Default is 0.1%</p>
         <button onClick={changeFee} className='button4'>Update Fee</button>
         <input type="number" className='inputFields'
           value={amount} onChange={ e => setAmount(e.target.value)}/> {message}

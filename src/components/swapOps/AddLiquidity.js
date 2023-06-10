@@ -10,21 +10,23 @@ function AddLiquidity() {
   let [amountB, setAmountB] = useState("");
 
   const addLiq = async (e) => {
+    if(amountA === "" || amountB === "") {
+      alert("enter some values");
+      return;
+    }
     e.preventDefault();
     let amount1 = parseInt(amountA);
     let amount2 = parseInt(amountB);
     if(amount1 < 1 ) {
       alert("Please add more than 1 TOKA");
       return;
-    } else {
-      if(amount2 < 1) {
-        alert("Please add more than 1 TOBA");
-        return;
-      } else {
-        await contractPanda.addLiquidity(amount1, amount2);
-        setMessage("success, pool increased");
-      }
     }
+    if(amount2 < 1) {
+      alert("Please add more than 1 TOBA");
+      return;
+    }
+    await contractPanda.addLiquidity(amount1, amount2);
+    setMessage("success, pool increased");
   } 
 
   return (

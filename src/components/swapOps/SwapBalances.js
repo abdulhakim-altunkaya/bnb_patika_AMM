@@ -33,6 +33,7 @@ function SwapBalances() {
               <span>PandaSwap Pool TokenA Balance: </span>{balance3} <br />
               <span>PandaSwap Pool TokenB Balance: </span>{balance4} <br />
               <span>PandaSwap Pool Fee Percentage: </span>{balance2/10}% <br />
+              <br />
           </div>
         </>
         :

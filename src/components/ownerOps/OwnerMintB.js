@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useAccount } from '../../Store';  
+import { AddressOwner } from "../addressABI/AddressOwner";
 
 
 function OwnerMintB() {
+
+  const { ethereum } = window;
 
   const contractTokenB = useAccount(state => state.contractTokenB2);
 
