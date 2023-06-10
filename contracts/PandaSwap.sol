@@ -255,7 +255,6 @@ contract PandaSwap {
     /*
     In case you redeploy contracts, dont forget to update RConnectMet component and readme file
     also for styling, if you can add process status to buttons such as "minting..., burning...,
-    update fee percentage structure, dont forget to update swapbalances component
-    disable owner display on owner component
+    disable owner display on owner component for Patika team to see component details
     dont forget to update owner adress in addresABI folder*/
 }

@@ -23,9 +23,11 @@ function Owner() {
         const accounts = await ethereum.request({ method: "eth_requestAccounts" });
         if(accounts[0].toLowerCase() !== AddressOwner.toLowerCase()) {
             alert("you are not owner");
+            setDisplayDetails(true);//This line I will delete when in production mode
             return;
         } else {
-            setDisplayDetails(!displayDetails);
+            setDisplayDetails(true); //this line I will delete when in production mode
+            //setDisplayDetails(!displayDetails);
         }
       
     }
