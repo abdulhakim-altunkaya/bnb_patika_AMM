@@ -5,7 +5,7 @@ require("dotenv").config();
 module.exports = {
   solidity: "0.8.7",
   networks: {
-    bnb: {
+    fantom: {
       url: process.env.PROVIDER_URL,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
     }

@@ -1,13 +1,13 @@
 # PandaSwap :panda_face:
 
-PandaSwap is a Decentralized Exchange (DEX) built on the BINANCE Smart Chain (BSC) network, providing users with a platform to securely swap their ERC-20 tokens. The Dex is based on Automated Market Maker (AMM) system. This project is developed by Abdulhakim Altunkaya for the BNB Patika Course.
+PandaSwap is a Decentralized Exchange (DEX) built on the BINANCE Smart Chain (BSC) network, providing users with a platform to securely swap their ERC-20 tokens. The Dex is an Automated Market Maker (AMM) pool of two ERC20 tokens named TokenA and TokenB. This project is developed by Abdulhakim Altunkaya for the BNB Patika Course.
 
-## Contract Addresses
-
-<strong> PandaSwap Contract: </strong> 0xec4B63d19A1f18477952d95a0Dc71F64690fb332 <br>
-<strong> TokenA Contract: </strong> 0xEB3d3b84F5c6D0db85c5e0666056858B283f82f3 <br>
-<strong> TokenB Contract: </strong> 0xCdD11a615072F4F09b2970c44dDd8b3F5226e695 <br>
-<strong> Owner Address: </strong> 0x6EcBD464d3200C08d1bC50027FC32a6Da6694641
+## Contract Addresses 
+<strong> Website: </strong> https://pandaswapbnb.netlify.app/ <br>
+<strong> PandaSwap Contract: </strong> 0x25ff1Ba107cE37F289Fe421F18284e5841370fB6 <br>
+<strong> TokenA Contract: </strong> 0xC65f8b1C0F135d422ea5850aEC33A2222cFCF247 <br>
+<strong> TokenB Contract: </strong> 0xDf7AF8217169e8C65A0a40124B10e13A885cc449 <br>
+<strong> Owner Address: </strong> 0x0FFeAf1dd1B54606CdD816B97BaCF51936E3d35a
 
 ## Features :star:
 
@@ -37,7 +37,7 @@ Use `npx hardhat run scripts/deploy.js --network bnb` to deploy the contracts to
 
 ## Contributing :handshake:
 
-We welcome contributions from the community. If you wish to contribute, please take a moment to review our **Contributing Guidelines**.
+Contributions are welcome. If you wish to contribute, you can create a branch and later push it to merge. I will review your changes.
 
 ## License :scroll:
 
@@ -45,7 +45,7 @@ PandaSwap is [MIT licensed](./LICENSE).
 
 ## Disclaimer :exclamation:
 
-This project is a work in progress and is not ready for production use. Use it at your own risk.
+This project is not for production use. Use it at your own risk.
 
 ## About the Developer :man_technologist:
 
