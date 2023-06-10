@@ -1,1 +1,1 @@
-export const AddressPanda = "0x76798da002b468F1544C22E9F0242F8c5A1Ad79a"
+export const AddressPanda = "0x43676Cd823734b235A7a518fEfb616cdeE819130"

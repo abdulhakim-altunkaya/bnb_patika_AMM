@@ -81,9 +81,9 @@ contract PandaSwap {
     }
 
     // Fee structure
-    uint public feePercentage = 1; // Fee percentage (default 1 means 1% fee)
+    uint public feePercentage = 1; // Fee percentage (default 1 means 0.1% fee)
     function updateFeePercentage(uint _fee) external isPaused onlyOwner {
-        require(_fee < 3, "fee cannot be bigger than %2");
+        require(_fee < 30, "fee cannot be bigger than %3");
         feePercentage = _fee;
         emit FeeUpdated(feePercentage);
     } 
@@ -166,8 +166,8 @@ contract PandaSwap {
         reserveB -= amountOut;
 
         //calculating fee on mathematical proportion
-        // we will charge %1 per tx on amountOut
-        uint txFee = (amountOut * feePercentage) / 100;
+        // we will charge %0.1 per tx on amountOut. 
+        uint txFee = (amountOut * feePercentage) / 1000;
         //deducting fee from amountOut
         amountOut -= txFee;
 
@@ -202,7 +202,7 @@ contract PandaSwap {
         reserveA -= amountOut;
 
         //calculating fee as above
-        uint txFee = (amountOut * feePercentage) / 100;
+        uint txFee = (amountOut * feePercentage) / 1000;
         //deducting fee from amountOut
         amountOut -= txFee;
 
@@ -255,5 +255,7 @@ contract PandaSwap {
     /*
     In case you redeploy contracts, dont forget to update RConnectMet component and readme file
     also for styling, if you can add process status to buttons such as "minting..., burning...,
-    update fee percentage structure*/
+    update fee percentage structure, dont forget to update swapbalances component
+    disable owner display on owner component
+    dont forget to update owner adress in addresABI folder*/
 }
