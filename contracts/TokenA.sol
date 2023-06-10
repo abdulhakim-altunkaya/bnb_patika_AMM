@@ -54,7 +54,6 @@ contract TokenA is ERC20Capped {
     //approve swap contract before sending tokens to it for liquidity
     function approvePanda(address _pandaContract, uint _amount) external {
         require(_amount > 0, "approve amount must be greater than 0");
-        require(_pandaContract != addresss(0), "enter a valid address for Swap contract");
         uint amount = _amount*(10**18);
         _approve(msg.sender, _pandaContract, amount);
     }

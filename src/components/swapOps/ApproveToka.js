@@ -31,8 +31,9 @@ function ApproveToka() {
   }
   return (
     <div>
-      <p>Before adding liquidity to the pool, you need to "approve" PandaSwap contract <br />
-      for the amount of TokenA and TokenB that you want to deposit</p>
+      <p>Before adding liquidity to the pool or swapping tokens, you need to "approve" PandaSwap contract <br />
+      Approving does not mean transferring. So, if you plan to use PandaSwap contract with 100 toka and 200 toba <br />
+      then, approve it with 200 toka and 400 toba.</p>
       <button onClick={approvePanda} className='button10'>Approve TokenA</button>
       <input type="number" placeholder='TOKA amount' className='inputFields'
          value={amount} onChange={ e => setAmount(e.target.value)}/> {message}

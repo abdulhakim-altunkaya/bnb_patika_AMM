@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { useAccount } from '../../Store';  
-import { ethers } from "ethers";
 
 function SwapBalances() {
   let [displayStatus, setDisplayStatus] = useState(false);
@@ -12,18 +11,17 @@ function SwapBalances() {
   let[balance3, setBalance3] = useState("");
   let[balance4, setBalance4] = useState("");
 
+
   const getBalances = async () => {
     setDisplayStatus(!displayStatus);
     let bal3 = await contractPanda.getReserves();
     let fee = await contractPanda.feePercentage();
-    const reserveAnew = parseInt(ethers.utils.formatUnits(bal3[0], 18));
-    const reserveBnew = parseInt(ethers.utils.formatUnits(bal3[1], 18));
+    const reserveAnew = bal3[0].toString();
+    const reserveBnew = bal3[1].toString();
     setBalance2(fee.toString());
     setBalance3(reserveAnew);
     setBalance4(reserveBnew);
-
   }
-
   return (
     <div>
       <button onClick={getBalances} className='button10'>GET BALANCES</button>
