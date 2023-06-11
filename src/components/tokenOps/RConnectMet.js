@@ -18,7 +18,7 @@ function RConnectMet() {
  
   const hideDetails = () => {
     setDisplayStatus(false);
-  }
+  } 
 
   return (
     <>

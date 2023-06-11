@@ -27,7 +27,7 @@ function ApproveToka() {
       return;
     }
     await contractTokenA.approvePanda(AddressPanda, amount1);
-    setMessage("success, you approved Pool with", amount1," tokens");
+    setMessage("success, you approved Pool");
   }
   return (
     <div>

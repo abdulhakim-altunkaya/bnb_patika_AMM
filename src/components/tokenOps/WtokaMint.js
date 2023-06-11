@@ -35,7 +35,7 @@ function WtokaMint() {
   return (
     <div>
       <button onClick={mintToken} className='button4'>Mint TokenA</button>
-      <input type="number" placeholder='Mint between 1-499' className='inputFields'
+      <input type="number" placeholder='Mint 1-499' className='inputFields'
          value={amount} onChange={ e => setAmount(e.target.value)}/> {message}
     </div>
   )
